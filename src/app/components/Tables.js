@@ -4,13 +4,18 @@ import DuesTable from "./tables/DuesTable";
 import QuotationsTable from "./tables/QuotationsTable";
 import InvoicesTable from "./tables/InvoicesTable";
 
-const Tables = ({ activeTab, subTab }) => {
+const Tables = ({ setActiveTab, activeTab, subTab }) => {
   return (
     <div className="p-4 bg-white rounded-lg shadow-md">
       {activeTab === "dues" && <DuesTable />}
-      {activeTab === "suppliers" && !subTab && <SuppliersTable />}
-      {activeTab === "suppliers" && subTab === "quotations" && <QuotationsTable />}
-      {activeTab === "suppliers" && subTab === "invoices" && <InvoicesTable />}
+      {(activeTab === "suppliers" || activeTab==="edit"&& subTab === null) && (
+        <SuppliersTable
+          setActiveTab={setActiveTab}
+
+        />
+      )}
+      {activeTab === "edit" && subTab === "quotations" && <QuotationsTable />}
+      {activeTab === "edit" && subTab === "invoices" && <InvoicesTable />}
     </div>
   );
 };
