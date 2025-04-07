@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import logo from "./assets/logo1.png"
+import logo from "./assets/logo.png"
 const NavBar = () => {
 
 
@@ -48,8 +48,8 @@ const NavBar = () => {
           <Image
             width={27}
             height={27}
-            src={logo}
             alt="logo"
+            src={logo}
             className="ml-4"
           />
         </div>
