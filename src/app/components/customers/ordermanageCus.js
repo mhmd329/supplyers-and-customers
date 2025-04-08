@@ -1,8 +1,8 @@
 "use client";
 import React, { useState } from "react";
-import Tables from "./Tables";
+import Tables from "./TablesCus";
 
-const OrderManagement = () => {
+const OrderManagementCus = () => {
   const [activeTab, setActiveTab] = useState("suppliers");
   const [subTab, setSubTab] = useState("suppliers");
 
@@ -13,21 +13,23 @@ const OrderManagement = () => {
 
   const getCurrentTabText = () => {
     if (activeTab === "dues") return "المبالغ المستحقة";
-    if (activeTab === "suppliers") return "الموردين";
+    if (activeTab === "suppliers") return "العملاء";
     if (activeTab === "edit") {
       return subTab === "invoices"
         ? "الفواتير"
         : subTab === "quotations"
         ? "عرض الأسعار"
-        : "الموردين";
+        : "العملاء";
     }
-    return "الموردين";
-  };
+    return "العملاء";
+  }
 
   return (
     <>
-      <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md mb-6 mx-2 sm:mx-0 flex justify-between items-start">
-        <div className="flex flex-col gap-2">
+ <h2 dir="rtl" className="text-3xl font-bold text-gray-800 mb-2 mt-6 px-2 sm:px-0">
+    العملاء
+  </h2>      <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md mb-2 mx-2 sm:mx-0 flex justify-between items-start">
+        <div className="flex shadow-md flex-col gap-2">
           <div className="flex gap-2">
             <button
               onClick={() => handleSelection("dues")}
@@ -43,7 +45,7 @@ const OrderManagement = () => {
                 activeTab === "suppliers" && !subTab ? "bg-gray-50 text-gray-900" : "bg-gray-200 text-gray-700 hover:bg-gray-200"
               }`}
             >
-              الموردين
+              العملاء
             </button>
           </div>
 
@@ -57,14 +59,14 @@ const OrderManagement = () => {
               >
                 الفواتير
               </button>
-              <button
+              {/* <button
                 onClick={() => handleSelection("edit", "quotations")}
                 className={`px-4 py-2 rounded-lg shadow-md ${
                   subTab === "quotations" ? "bg-gray-50 text-gray-900" : "bg-gray-200 text-gray-700 hover:bg-gray-200"
                 }`}
               >
                 عرض الأسعار
-              </button>
+              </button> */}
              
             </div>
           )}
@@ -90,4 +92,4 @@ const OrderManagement = () => {
   );
 };
 
-export default OrderManagement;
+export default OrderManagementCus;

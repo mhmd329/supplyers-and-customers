@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { invoices } from "../data";
+import { invoices } from "../dataCus";
 
 const DuesTable = () => {
   const [duesList, setDuesList] = useState(invoices);
@@ -19,18 +19,17 @@ const DuesTable = () => {
               <tr className="bg-[#D0F3E5] text-gray-700">
 
                 <th className="py-3 px-4 border-b text-sm sm:text-base">المبلغ المتبقي</th>
-                <th className="py-3 px-4 border-b text-sm sm:text-base">اسم المورد</th>
+                <th className="py-3 px-4 border-b text-sm sm:text-base">اسم العميل</th>
               </tr>
             </thead>
             <tbody>
               {duesList.map((due, index) => (
                 <tr
                   key={due.id}
-                  className={`text-center border-b ${
-                    index % 2 === 0 ? "bg-gray-50" : "bg-[#E8F9F2]"
-                  }`}
+                  className={`text-center border-b ${index % 2 === 0 ? "bg-gray-50" : "bg-[#E8F9F2]"
+                    }`}
                 >
-                  
+
                   <td className="py-3 px-4 text-sm sm:text-base">{due.remainingAmount} جنيه</td>
                   <td className="py-3 px-4 text-sm sm:text-base">{due.supplier}</td>
                 </tr>

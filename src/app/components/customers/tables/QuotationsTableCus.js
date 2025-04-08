@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { quotations } from "../data";
+import { quotations } from "../dataCus";
 
 const QuotationsTable = () => {
     const [selectedQuotation, setSelectedQuotation] = useState(null);
@@ -14,7 +14,7 @@ const QuotationsTable = () => {
     });
 
     const [showModal, setShowModal] = useState(false);
-    const [searchTerm, setSearchTerm] = useState(""); 
+    const [searchTerm, setSearchTerm] = useState("");
 
     const handleQuotationChange = (e) => {
         const { name, value } = e.target;
@@ -28,7 +28,7 @@ const QuotationsTable = () => {
 
         if (!newQuotation.description || !newQuotation.amount) {
             alert("يرجى ملء جميع الحقول");
-            return; 
+            return;
         }
 
         const newId = Math.max(...quotationList.map(q => q.id), 0) + 1;

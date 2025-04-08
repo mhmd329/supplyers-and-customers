@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { invoices } from "../data"; 
+import { invoices } from "../data";
 
 const InvoicesTable = () => {
     const [selectedInvoice, setSelectedInvoice] = useState(null);
     const [invoiceList, setInvoiceList] = useState(invoices);
-    const [searchTerm, setSearchTerm] = useState(""); 
+    const [searchTerm, setSearchTerm] = useState("");
     const [showTaxModal, setShowTaxModal] = useState(false);
 
     const filteredInvoices = invoiceList.filter((invoice) =>
@@ -46,8 +46,8 @@ const InvoicesTable = () => {
                         <thead>
                             <tr className="bg-[#D0F3E5] text-gray-700">
                                 <th className="py-3 px-4 border-b">خيارات</th>
-                                <th className="py-3 px-4 border-b">المبلغ الكلي</th>
-                                <th className="py-3 px-4 border-b">المبلغ المتبقي</th>
+                                <th className="py-3 px-4 border-b"> المبلغ المتبقي</th>
+                                <th className="py-3 px-4 border-b"> مبلغ الفاتورة</th>
                                 <th className="py-3 px-4 border-b">التاريخ</th>
 
                                 <th className="py-3 px-4 border-b">رقم الفاتورة</th>
@@ -73,8 +73,9 @@ const InvoicesTable = () => {
                                             عرض
                                         </button>
                                     </td>
-                                    <td className="py-3 px-4">{invoice.totalAmount}</td>
                                     <td className="py-3 px-4">{invoice.remainingAmount}</td>
+                                    <td className="py-3 px-4">{invoice.totalAmount}</td>
+
                                     <td className="py-3 px-4">{invoice.invoiceDate}</td>
                                     <td className="py-3 px-4">{invoice.invoiceNumber}</td>
                                 </tr>
