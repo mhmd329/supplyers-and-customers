@@ -15,7 +15,7 @@ export default function Home() {
           onClick={() => setActiveTab("suppliers")}
           className={`px-4 py-2 rounded ${
             activeTab === "suppliers"
-              ? "bg-green-600 text-white"
+              ? "bg-[#16C47F] text-white"
               : "bg-gray-200 text-gray-700"
           }`}
         >
@@ -26,7 +26,7 @@ export default function Home() {
           onClick={() => setActiveTab("customers")}
           className={`px-4 py-2 rounded ${
             activeTab === "customers"
-              ? "bg-green-600 text-white"
+              ? "bg-[#16C47F] text-white"
               : "bg-gray-200 text-gray-700"
           }`}
         >

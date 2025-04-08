@@ -76,10 +76,10 @@ const QuotationsTable = () => {
                 </div>
 
                 <button
-                    className="bg-green-500 text-white px-4 py-2 rounded-lg shadow-md"
+                    className="bg-[#16C47F] text-white px-4 py-2 rounded-lg shadow-md"
                     onClick={() => setShowModal(true)}
                 >
-                    إضافة عرض جديد
+                    إضافة عرض 
                 </button>
             </div>
 
@@ -103,14 +103,53 @@ const QuotationsTable = () => {
                             {filteredQuotations.map((quotation, index) => (
                                 <tr key={quotation.id} className={`text-center border-b ${index % 2 === 0 ? "bg-gray-50" : "bg-[#E8F9F2]"}`}>
                                     <td className="py-3 px-2 sm:px-4 flex flex-col sm:flex-row justify-center gap-1 sm:gap-2">
-                                        <button className="text-red-500 border px-3 py-1 rounded-md hover:bg-red-50 transition"
-                                            onClick={() => handleDeleteQuotation(quotation.id)}>
+                                        <button
+                                            className="text-red-500 border border-red-500 px-2 sm:px-3 py-1 rounded-md hover:bg-red-50 transition flex items-center justify-center gap-1 text-xs sm:text-sm"
+                                            onClick={() => handleDeleteQuotation(quotation.id)}
+                                        >
+
                                             حذف
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                className="w-4 h-4"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                stroke="currentColor"
+                                            >
+                                                <path
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    strokeWidth={2}
+                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7h6m2 0H7"
+                                                />
+                                            </svg>
                                         </button>
-                                        <button className="bg-green-400 border-2 text-white px-2 sm:px-3 py-1 rounded-md flex items-center justify-center gap-1 text-xs sm:text-sm"
-                                            onClick={() => setSelectedQuotation(quotation)}>
-                                            عرض
-                                        </button>
+                                        <button
+                      className="text-[#16C47F] border border-[#16C47F] px-2 sm:px-3 py-1 rounded-md transition flex items-center justify-center gap-1 text-xs sm:text-sm"
+                      onClick={() => setSelectedQuotation(quotation)}
+                    >
+                      عرض
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="#16C47F"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                        />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                        />
+                      </svg>
+                    </button>
                                     </td>
 
                                     <td className="py-3 px-4">{quotation.amount}</td>

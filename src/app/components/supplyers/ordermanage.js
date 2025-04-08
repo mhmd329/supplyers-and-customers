@@ -76,7 +76,7 @@ const OrderManagement = () => {
         <div className="flex flex-col items-end gap-2">
           <button
             onClick={() => window.print()}
-            className="bg-green-500 text-white px-4 py-2 rounded-lg shadow-md"
+            className="bg-[#16C47F] text-white px-4 py-2 rounded-lg shadow-md"
           >
             طباعة
           </button>

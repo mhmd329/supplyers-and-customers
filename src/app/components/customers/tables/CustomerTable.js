@@ -98,7 +98,7 @@ const CustomerTable = ({ setActiveTab }) => {
               onClick={handleUpdateOrder}
               className={`w-full sm:w-24 h-12 rounded-md shadow transition flex items-center justify-center gap-2 ${(!selectedSupplier.name || !selectedSupplier.phone || !selectedSupplier.address)
                 ? 'bg-gray-400 cursor-not-allowed'
-                : 'bg-green-500 hover:bg-green-600 text-white'
+                : 'bg-[#16C47F] cursor-pointer text-white'
                 }`}
               disabled={!selectedSupplier.name || !selectedSupplier.phone || !selectedSupplier.address}
             >
@@ -148,18 +148,35 @@ const CustomerTable = ({ setActiveTab }) => {
       <div className="mb-4 flex flex-col sm:flex-row justify-between items-center">
         <button
           onClick={() => setIsModalOpen(true)}
-          className="bg-green-500 text-white px-4 py-2 rounded-lg shadow-md w-auto"
+          className="bg-[#16C47F] text-white px-4 py-2 rounded-lg shadow-md w-auto"
         >
-          إضافة عميل جديد
+          إضافة عميل 
         </button>
 
-        <input
-          type="text"
-          placeholder="ابحث عن عميل"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="mt-4 sm:mt-0 w-1/2 sm:w-1/3 p-2 border border-gray-300 rounded-lg"
-        />
+       
+        <div className="relative mt-4 sm:mt-0 w-1/2 sm:w-1/3">
+          <input
+            type="text"
+            placeholder="ابحث هنا"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full p-2 pr-10 border border-gray-300 rounded-lg text-right"
+          />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M21 21l-4.35-4.35M16.65 16.65A7.5 7.5 0 1010.5 3a7.5 7.5 0 006.15 13.65z"
+            />
+          </svg>
+        </div>
       </div>
 
 
@@ -225,10 +242,10 @@ const CustomerTable = ({ setActiveTab }) => {
             <div className="mt-4 flex justify-between gap-2">
               <button
                 onClick={handleAddSupplier}
-                className="bg-green-600 text-white px-4 py-2 rounded-lg shadow-md"
+                className="bg-[#16C47F] text-white px-4 py-2 rounded-lg shadow-md"
                 disabled={!newSupplier.name || !newSupplier.phone || !newSupplier.address}
               >
-                حفظ العميل
+                حفظ 
               </button>
 
             </div>
@@ -260,17 +277,52 @@ const CustomerTable = ({ setActiveTab }) => {
                     }`}
                 >
                   <td className="py-3 px-2 sm:px-4 flex flex-col sm:flex-row justify-center gap-1 sm:gap-2">
-                    <button
+                  <button
                       className="text-red-500 border border-red-500 px-2 sm:px-3 py-1 rounded-md hover:bg-red-50 transition flex items-center justify-center gap-1 text-xs sm:text-sm"
                       onClick={() => handleDeleteSupplier(supplier.id)}
                     >
                       حذف
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7h6m2 0H7"
+                        />
+                      </svg>
                     </button>
+
                     <button
-                      className="bg-green-400 text-white px-2 sm:px-3 py-1 rounded-md hover:bg-green-600 transition flex items-center justify-center gap-1 text-xs sm:text-sm"
+                      className="text-[#16C47F] border border-[#16C47F] px-2 sm:px-3 py-1 rounded-md transition flex items-center justify-center gap-1 text-xs sm:text-sm"
                       onClick={() => handleEditOrder(supplier)}
                     >
                       عرض
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-4 h-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="#16C47F"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                        />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                        />
+                      </svg>
                     </button>
                   </td>
                   <td className="py-3 px-4 text-sm sm:text-base">{supplier.address}</td>
