@@ -146,11 +146,14 @@ const CustomerTable = ({ setActiveTab }) => {
         </div>
       )}
       <div className="mb-4 flex flex-col sm:flex-row justify-between items-center">
-        <button
+      <button
           onClick={() => setIsModalOpen(true)}
-          className="bg-[#16C47F] text-white px-4 py-2 rounded-lg shadow-md w-auto"
+          className="bg-[#16C47F] text-white px-4 py-2 rounded-lg shadow-md w-auto flex items-center gap-2"
         >
-          إضافة عميل 
+          إضافة عميل
+          <span className="text-xl font-bold w-6 h-6 flex items-center justify-center border  rounded-full">
+            +
+          </span>
         </button>
 
        
