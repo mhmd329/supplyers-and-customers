@@ -15,17 +15,17 @@ const InvoicesTable = () => {
 
     return (
         <div className="overflow-x-auto mx-2 sm:mx-0">
-            <div className="flex justify-end mt-4 w-full">
+            <div className="flex justify-start mt-4 w-full" dir="rtl">
                 <div className="relative w-full sm:w-80">
                     <input
                         type="text"
                         placeholder="ابحث هنا..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="w-full pl-10 pr-3 py-2 border text-right border-gray-300 rounded-md bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full pr-10 pl-3 py-2 border text-right border-gray-300 rounded-md bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                     <svg
-                        className="w-5 h-5 text-gray-500 absolute inset-y-0 left-3 my-auto"
+                        className="w-5 h-5 text-gray-500 absolute inset-y-0 right-3 my-auto"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -35,6 +35,7 @@ const InvoicesTable = () => {
                     </svg>
                 </div>
             </div>
+
 
             {filteredInvoices.length === 0 ? (
                 <div className="text-center py-8 text-gray-500 bg-white rounded-lg shadow">
