@@ -93,7 +93,7 @@ const QuotationsTable = () => {
                     لا توجد بيانات متاحة
                 </div>
             ) : (
-                <div className="shadow-md rounded-lg overflow-hidden">
+                <div className="shadow-md rounded-lg overflow-x-auto">
                     <table className="min-w-full bg-white">
                         <thead>
                             <tr className="bg-[#D0F3E5] text-gray-700">
@@ -166,7 +166,7 @@ const QuotationsTable = () => {
             )}
             {selectedQuotation && (
                 <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50">
-                    <div className="bg-white p-6 rounded-lg shadow-lg w-[600px] relative text-center">
+                    <div className="bg-white p-6 rounded-lg shadow-lg w-[600px] relative text-center overflow-x-auto">
                         <h2 className="text-xl font-semibold mb-4 text-gray-700">عرض اسعار</h2>
 
                         <table className="min-w-full bg-white">

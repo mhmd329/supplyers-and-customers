@@ -262,7 +262,7 @@ const CustomerTable = ({ setActiveTab }) => {
           لا توجد بيانات متاحة
         </div>
       ) : (
-        <div className="shadow-md rounded-lg overflow-hidden">
+        <div className="shadow-md rounded-lg overflow-x-auto">
           <table className="min-w-full bg-white">
             <thead>
               <tr className="bg-[#D0F3E5] text-gray-700">

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { invoices } from "../dataCus";
 
-const DuesTable = () => {
+const DuesTableCus = () => {
   const [duesList, setDuesList] = useState(invoices);
   const [selectedDue, setSelectedDue] = useState(null);
 
@@ -65,4 +65,4 @@ const DuesTable = () => {
   );
 };
 
-export default DuesTable;
+export default DuesTableCus;

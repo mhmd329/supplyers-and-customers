@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { invoices } from "../dataCus";
 
-const InvoicesTable = () => {
+const InvoicesTableCus = () => {
     const [selectedInvoice, setSelectedInvoice] = useState(null);
     const [invoiceList, setInvoiceList] = useState(invoices);
     const [searchTerm, setSearchTerm] = useState("");
@@ -41,7 +41,7 @@ const InvoicesTable = () => {
                     لا توجد بيانات متاحة
                 </div>
             ) : (
-                <div className="shadow-md rounded-lg overflow-hidden">
+                <div className="shadow-md rounded-lg overflow-x-auto">
                     <table className="min-w-full bg-white">
                         <thead>
                             <tr className="bg-[#D0F3E5] text-gray-700">
@@ -102,7 +102,7 @@ const InvoicesTable = () => {
             )}
             {selectedInvoice && (
                 <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50 p-4">
-                    <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-[90%] md:max-w-[900px] max-h-[90vh] overflow-y-auto relative">
+                    <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-[90%] md:max-w-[900px] max-h-[90vh] overflow-auto relative">
                         <button
                             className="text-black rounded-full w-8 h-8 flex items-center justify-center absolute top-4 left-4 cursor-pointer"
                             onClick={() => setSelectedInvoice(null)}
@@ -245,4 +245,4 @@ const InvoicesTable = () => {
     );
 };
 
-export default InvoicesTable;
+export default InvoicesTableCus;

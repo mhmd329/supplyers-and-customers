@@ -26,16 +26,20 @@ const OrderManagement = () => {
 
   return (
     <>
-    <h2 dir="rtl" className="text-3xl font-bold text-gray-800 mb-2 mt-6 px-2 sm:px-0">
-    الموردين
-  </h2>
-      <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md mb-2 mx-2 sm:mx-0 flex justify-between items-start">
+      <h2 dir="rtl" className="text-3xl font-bold text-gray-800 mb-2 mt-6 px-2 sm:px-0">
+        الموردين
+      </h2>
+
+      <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md mb-2 mx-2 sm:mx-0 flex flex-col sm:flex-row justify-between gap-4">
+        {/* التبويبات */}
         <div className="flex flex-col gap-2">
-          <div className="flex gap-2">
+          <div className="flex flex-col sm:flex-row gap-2">
             <button
               onClick={() => handleSelection("dues")}
               className={`px-4 py-2 rounded-lg shadow-md ${
-                activeTab === "dues" ? "bg-gray-50 text-gray-900" : "bg-gray-200 text-gray-700 hover:bg-gray-200"
+                activeTab === "dues"
+                  ? "bg-gray-50 text-gray-900"
+                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
               }`}
             >
               المبالغ المستحقة
@@ -43,7 +47,9 @@ const OrderManagement = () => {
             <button
               onClick={() => handleSelection("suppliers")}
               className={`px-4 py-2 rounded-lg shadow-md ${
-                activeTab === "suppliers" && !subTab ? "bg-gray-50 text-gray-900" : "bg-gray-200 text-gray-700 hover:bg-gray-200"
+                activeTab === "suppliers" && !subTab
+                  ? "bg-gray-50 text-gray-900"
+                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
               }`}
             >
               الموردين
@@ -51,11 +57,13 @@ const OrderManagement = () => {
           </div>
 
           {activeTab === "edit" && (
-            <div className="flex gap-2 mt-2">
-               <button
+            <div className="flex flex-col sm:flex-row gap-2 mt-2">
+              <button
                 onClick={() => handleSelection("edit", "invoices")}
                 className={`px-4 py-2 rounded-lg shadow-md ${
-                  subTab === "invoices" ? "bg-gray-50 text-gray-900" : "bg-gray-200 text-gray-700 hover:bg-gray-200"
+                  subTab === "invoices"
+                    ? "bg-gray-50 text-gray-900"
+                    : "bg-gray-200 text-gray-700 hover:bg-gray-300"
                 }`}
               >
                 الفواتير
@@ -63,17 +71,18 @@ const OrderManagement = () => {
               <button
                 onClick={() => handleSelection("edit", "quotations")}
                 className={`px-4 py-2 rounded-lg shadow-md ${
-                  subTab === "quotations" ? "bg-gray-50 text-gray-900" : "bg-gray-200 text-gray-700 hover:bg-gray-200"
+                  subTab === "quotations"
+                    ? "bg-gray-50 text-gray-900"
+                    : "bg-gray-200 text-gray-700 hover:bg-gray-300"
                 }`}
               >
                 عرض الأسعار
               </button>
-             
             </div>
           )}
         </div>
 
-        <div className="flex flex-col items-end gap-2">
+        <div className="flex flex-col-reverse sm:flex-col items-end gap-2 text-end">
           <button
             onClick={() => window.print()}
             className="bg-[#16C47F] text-white px-4 py-2 rounded-lg shadow-md"
@@ -86,8 +95,14 @@ const OrderManagement = () => {
         </div>
       </div>
 
+
       <div>
-        <Tables setActiveTab={setActiveTab} setSubTab={setSubTab} activeTab={activeTab} subTab={subTab} />
+        <Tables
+          setActiveTab={setActiveTab}
+          setSubTab={setSubTab}
+          activeTab={activeTab}
+          subTab={subTab}
+        />
       </div>
     </>
   );
