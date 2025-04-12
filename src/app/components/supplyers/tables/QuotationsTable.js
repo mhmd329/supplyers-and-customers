@@ -11,6 +11,14 @@ const QuotationsTable = () => {
         supplier: "",
         description: "",
         amount: "",
+        products: [
+            {
+                productName: "",
+                category: "",
+                unit: "",
+                quantity: "",
+            },
+        ],
     });
 
     const [showModal, setShowModal] = useState(false);
@@ -24,13 +32,30 @@ const QuotationsTable = () => {
         }));
     };
 
-    const handleAddQuotation = () => {
+    const handleProductChange = (e, index) => {
+        const { name, value } = e.target;
+        const updatedProducts = [...newQuotation.products];
+        updatedProducts[index][name] = value;
+        setNewQuotation(prev => ({ ...prev, products: updatedProducts }));
+    };
 
-        if (!newQuotation.description || !newQuotation.amount) {
-            alert("يرجى ملء جميع الحقول");
+    const handleAddProductRow = () => {
+        setNewQuotation(prev => ({
+            ...prev,
+            products: [...prev.products, { productName: "", category: "", unit: "", quantity: "" }],
+        }));
+    };
+
+    const handleRemoveProductRow = (index) => {
+        if (newQuotation.products.length === 1) {
+            alert("لا يمكن حذف الصف الأخير. يجب أن يحتوي العرض على منتج واحد على الأقل.");
             return;
         }
+        const updatedProducts = newQuotation.products.filter((_, i) => i !== index);
+        setNewQuotation(prev => ({ ...prev, products: updatedProducts }));
+    };
 
+    const handleAddQuotation = () => {
         const newId = Math.max(...quotationList.map(q => q.id), 0) + 1;
         const quotationToAdd = {
             id: newId,
@@ -38,14 +63,22 @@ const QuotationsTable = () => {
         };
 
         setQuotationList([...quotationList, quotationToAdd]);
-        setNewQuotation({ quotationNumber: "", quotationDate: "", expiryDate: "", supplier: "", description: "", amount: "" });
+        setNewQuotation({
+            quotationNumber: "",
+            quotationDate: "",
+            expiryDate: "",
+            supplier: "",
+            description: "",
+            amount: "",
+            products: [
+                { productName: "", category: "", unit: "", quantity: "" },
+            ],
+        });
         setShowModal(false);
     };
 
-
     const filteredQuotations = quotationList.filter((quotation) =>
-        quotation.amount.toString().includes(searchTerm)
-        ||
+        quotation.amount.toString().includes(searchTerm) ||
         quotation.description.includes(searchTerm)
     );
 
@@ -53,34 +86,37 @@ const QuotationsTable = () => {
         setQuotationList(quotationList.filter((quotation) => quotation.id !== id));
     };
 
+
     return (
         <div className="overflow-x-auto mx-2 sm:mx-0">
             <div className="flex justify-between items-center flex-wrap gap-4 mb-4" dir="rtl">
-                <div className="relative w-full sm:w-80">
-                    <div className="flex items-center bg-gray-100 border border-gray-300 rounded-md focus-within:ring-2 focus-within:ring-blue-500 px-3 py-2">
-                        <svg
-                            className="w-5 h-5 text-gray-500 ml-2"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                        >
-                            <circle cx="11" cy="11" r="8" />
-                            <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                        </svg>
 
-
-                        <input
-                            type="text"
-                            placeholder="ابحث هنا..."
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                            className="flex-1 bg-transparent outline-none text-right"
+                <div className="relative mt-4 bg-gray-50 sm:mt-0 w-1/2 sm:w-1/3 mb-4 ml-auto">
+                    <input
+                        type="text"
+                        placeholder="ابحث هنا"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className="w-full p-2 pr-10 border border-gray-300 rounded-xl text-right"
+                    />
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M21 21l-4.35-4.35M16.65 16.65A7.5 7.5 0 1010.5 3a7.5 7.5 0 006.15 13.65z"
                         />
-                    </div>
+                    </svg>
                 </div>
 
                 <button
-                    className="bg-[#16C47F] text-white px-4 py-2 rounded-lg shadow-md"
+                    className="bg-[#16C47F] hover:bg-green-700 text-white px-4 py-2 rounded-lg shadow-md cursor-pointer"
                     onClick={() => setShowModal(true)}
                 >
                     إضافة عرض
@@ -108,7 +144,7 @@ const QuotationsTable = () => {
                                 <tr key={quotation.id} className={`text-center border-b ${index % 2 === 0 ? "bg-gray-50" : "bg-[#E8F9F2]"}`}>
                                     <td className="py-3 px-2 sm:px-4 flex flex-col sm:flex-row justify-center gap-1 sm:gap-2">
                                         <button
-                                            className="text-red-500 border border-red-500 px-2 sm:px-3 py-1 rounded-md hover:bg-red-50 transition flex items-center justify-center gap-1 text-xs sm:text-sm"
+                                            className="text-red-500 border cursor-pointer border-red-500 px-2 sm:px-3 py-1 rounded-md hover:bg-red-50 transition flex items-center justify-center gap-1 text-xs sm:text-sm"
                                             onClick={() => handleDeleteQuotation(quotation.id)}
                                         >
 
@@ -129,7 +165,7 @@ const QuotationsTable = () => {
                                             </svg>
                                         </button>
                                         <button
-                                            className="text-[#16C47F] border border-[#16C47F] px-2 sm:px-3 py-1 rounded-md transition flex items-center justify-center gap-1 text-xs sm:text-sm"
+                                            className="text-[#16C47F] hover:bg-green-700 border cursor-pointer border-[#16C47F] px-2 sm:px-3 py-1 rounded-mdhover:bg-green-700 transition flex items-center justify-center gap-1 text-xs sm:text-sm"
                                             onClick={() => setSelectedQuotation(quotation)}
                                         >
                                             عرض
@@ -165,18 +201,18 @@ const QuotationsTable = () => {
                 </div>
             )}
             {selectedQuotation && (
-                <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50">
-                    <div className="bg-white p-6 rounded-lg shadow-lg w-[600px] relative text-center overflow-x-auto">
-                        <h2 className="text-xl font-semibold mb-4 text-gray-700">عرض اسعار</h2>
+                <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50 p-4">
+                    <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-5xl relative text-center overflow-x-auto">
+                        <h2 className="text-2xl font-semibold mb-6 text-gray-700">عرض اسعار</h2>
 
                         <table className="min-w-full bg-white">
                             <thead>
                                 <tr className="bg-[#D0F3E5] text-gray-700">
-                                    <th className="py-3 px-6 border-b" style={{ width: '20%' }}>الاجمالي</th>
-                                    <th className="py-3 px-6 border-b" style={{ width: '20%' }}>الكمية</th>
-                                    <th className="py-3 px-6 border-b" style={{ width: '20%' }}>وحدة البيع</th>
-                                    <th className="py-3 px-6 border-b" style={{ width: '20%' }}>اسم المنتج</th>
-                                    <th className="py-3 px-6 border-b" style={{ width: '20%' }}>كود المنتج</th>
+                                    <th className="py-3 px-6 border-b w-[20%]">الاجمالي</th>
+                                    <th className="py-3 px-6 border-b w-[20%]">الكمية</th>
+                                    <th className="py-3 px-6 border-b w-[20%]">وحدة البيع</th>
+                                    <th className="py-3 px-6 border-b w-[20%]">اسم المنتج</th>
+                                    <th className="py-3 px-6 border-b w-[20%]">كود المنتج</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -204,73 +240,115 @@ const QuotationsTable = () => {
                             </tbody>
                         </table>
 
-                        <div className="flex justify-end mt-4">
-                            <button
-                                className=" text-black px-4 py-2 rounded-md cursor-pointer transition absolute top-0 left-0"
-                                onClick={() => setSelectedQuotation(null)}
-                            >
-                                x
-                            </button>
-                        </div>
+                        <button
+                            className="text-black px-4 py-2 cursor-pointer rounded-md absolute top-4 left-4 text-lg"
+                            onClick={() => setSelectedQuotation(null)}
+                        >
+                            ×
+                        </button>
                     </div>
                 </div>
             )}
+{showModal && (
+    <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50">
+        <div dir="rtl" className="bg-white p-6 rounded-lg shadow-lg w-full sm:w-[650px] flex flex-col justify-start items-center relative">
+            <button
+                className="absolute top-2 right-2 text-gray-700 cursor-pointer p-2 rounded-full hover:bg-gray-200"
+                onClick={() => setShowModal(false)}
+            >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
 
+            <h2 className="text-xl font-semibold mb-4 text-gray-800">إضافة عرض </h2>
 
-            {showModal && (
-                <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50">
-                    <div className="bg-white p-6 rounded-lg shadow-lg w-full sm:w-96 flex flex-col justify-start items-center relative">
-                        <button
-                            className="absolute top-2 right-2 text-gray-700 p-2 rounded-full hover:bg-gray-200"
-                            onClick={() => setShowModal(false)}
-                        >
-                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
-                            </svg>
-                        </button>
+            {/* رأس الجدول */}
+            <div className="w-full mb-2">
+                <div className="grid grid-cols-5 gap-4 text-sm font-medium text-gray-700 text-center">
+                    <div>اسم المنتج</div>
+                    <div>فئة المنتج</div>
+                    <div>وحدة البيع</div>
+                    <div>الكمية</div>
+                    <div></div>
+                </div>
+            </div>
 
-                        <h2 className="text-xl font-semibold mb-4 text-gray-800">إضافة عرض جديد</h2>
+            {/* صفوف المنتجات */}
+            {newQuotation.products.map((product, index) => {
+                const isLastRow = index === newQuotation.products.length - 1;
 
-                        <div className="mb-4 w-full flex items-center">
-                            <label className="text-gray-700 mr-2 w-28">وصف العرض</label>
+                return (
+                    <div key={index} className="w-full mb-2">
+                        <div className="grid grid-cols-5 gap-4 items-center">
                             <input
                                 type="text"
-                                name="description"
-                                value={newQuotation.description}
-                                onChange={handleQuotationChange}
-                                className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
-                                placeholder="وصف العرض"
-                                required
+                                name="productName"
+                                value={product.productName}
+                                onChange={(e) => handleProductChange(e, index)}
+                                className="p-2 border border-gray-300 rounded-lg text-right"
+                                placeholder="اسم المنتج"
                             />
-                        </div>
-
-                        <div className="mb-4 w-full flex items-center">
-                            <label className="text-gray-700 mr-2 w-28">المبلغ</label>
+                            <input
+                                type="text"
+                                name="category"
+                                value={product.category}
+                                onChange={(e) => handleProductChange(e, index)}
+                                className="p-2 border border-gray-300 rounded-lg text-right"
+                                placeholder="فئة المنتج"
+                            />
+                            <input
+                                type="text"
+                                name="unit"
+                                value={product.unit}
+                                onChange={(e) => handleProductChange(e, index)}
+                                className="p-2 border border-gray-300 rounded-lg text-right"
+                                placeholder="وحدة البيع"
+                            />
                             <input
                                 type="number"
-                                name="amount"
-                                value={newQuotation.amount}
-                                onChange={handleQuotationChange}
-                                className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
-                                placeholder="المبلغ"
-                                required
+                                name="quantity"
+                                value={product.quantity}
+                                onChange={(e) => handleProductChange(e, index)}
+                                className="p-2 border border-gray-300 rounded-lg text-right w-full"
+                                placeholder="الكمية"
                             />
-                        </div>
 
-
-                        <div className="w-full mt-4">
-                            <button
-                                onClick={handleAddQuotation}
-                                className="w-full bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
-                            >
-                                إضافة العرض
-                            </button>
+                            <div className="flex justify-start gap-2">
+                                {isLastRow && (
+                                    <>
+                                        <button
+                                            onClick={() => handleRemoveProductRow(index)}
+                                            className="bg-red-100 text-red-600 font-bold px-3 py-1 rounded-lg hover:bg-red-200"
+                                        >
+                                            ×
+                                        </button>
+                                        <button
+                                            onClick={handleAddProductRow}
+                                            className="bg-gray-200 text-xl px-3 py-1 rounded-lg hover:bg-gray-300"
+                                        >
+                                            +
+                                        </button>
+                                    </>
+                                )}
+                            </div>
                         </div>
                     </div>
-                </div>
-            )}
+                );
+            })}
 
-
+            {/* زر الحفظ */}
+            <div className="w-full mt-4 flex justify-end">
+                <button
+                    onClick={handleAddQuotation}
+                    className="w-22 bg-[#16C47F] cursor-pointer text-white px-4 py-2 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
+                >
+                    حفظ
+                </button>
+            </div>
+        </div>
+    </div>
+)}
 
         </div>
     );

@@ -31,12 +31,12 @@ const OrderManagementCus = () => {
       </h2>
 
       <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md mb-2 mx-2 sm:mx-0 flex flex-col sm:flex-row justify-between gap-4">
-        {/* التبويبات */}
+        
         <div className="flex flex-col gap-2">
           <div className="flex flex-col sm:flex-row gap-2">
             <button
               onClick={() => handleSelection("dues")}
-              className={`px-4 py-2 rounded-lg shadow-md ${
+              className={`px-4 py-2 rounded-lg shadow-md cursor-pointer ${
                 activeTab === "dues"
                   ? "bg-gray-50 text-gray-900"
                   : "bg-gray-200 text-gray-700 hover:bg-gray-300"
@@ -46,7 +46,7 @@ const OrderManagementCus = () => {
             </button>
             <button
               onClick={() => handleSelection("suppliers")}
-              className={`px-4 py-2 rounded-lg shadow-md ${
+              className={`px-4 py-2 rounded-lg shadow-md cursor-pointer ${
                 activeTab === "suppliers" && !subTab
                   ? "bg-gray-50 text-gray-900"
                   : "bg-gray-200 text-gray-700 hover:bg-gray-300"
@@ -56,39 +56,13 @@ const OrderManagementCus = () => {
             </button>
           </div>
 
-          {/* التبويبات الفرعية */}
-          {activeTab === "edit" && (
-            <div className="flex flex-col sm:flex-row gap-2 mt-2">
-              <button
-                onClick={() => handleSelection("edit", "invoices")}
-                className={`px-4 py-2 rounded-lg shadow-md ${
-                  subTab === "invoices"
-                    ? "bg-gray-50 text-gray-900"
-                    : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-                }`}
-              >
-                الفواتير
-              </button>
-              {/* لو عايز ترجع زر عرض الأسعار، شيل الكومنت هنا */}
-              {/* <button
-                onClick={() => handleSelection("edit", "quotations")}
-                className={`px-4 py-2 rounded-lg shadow-md ${
-                  subTab === "quotations"
-                    ? "bg-gray-50 text-gray-900"
-                    : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-                }`}
-              >
-                عرض الأسعار
-              </button> */}
-            </div>
-          )}
+         
         </div>
 
-        {/* الزر والنص */}
         <div className="flex flex-col-reverse sm:flex-col items-end gap-2 text-end">
           <button
             onClick={() => window.print()}
-            className="bg-[#16C47F] text-white px-4 py-2 rounded-lg shadow-md"
+            className="bg-[#16C47F] hover:bg-green-700 cursor-pointer text-white px-4 py-2 rounded-lg shadow-md"
           >
             طباعة
           </button>
@@ -98,7 +72,7 @@ const OrderManagementCus = () => {
         </div>
       </div>
 
-      {/* جدول البيانات */}
+
       <div>
         <Tables
           setActiveTab={setActiveTab}

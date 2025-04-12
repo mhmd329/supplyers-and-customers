@@ -13,9 +13,9 @@ export default function Home() {
       <div className="flex justify-center my-4 gap-4">
         <button
           onClick={() => setActiveTab("suppliers")}
-          className={`px-4 py-2 rounded ${
+          className={`px-4 py-2 rounded cursor-pointer ${
             activeTab === "suppliers"
-              ? "bg-[#16C47F] text-white"
+              ? "bg-[#16C47F] text-white hover:bg-green-700"
               : "bg-gray-200 text-gray-700"
           }`}
         >
@@ -24,9 +24,9 @@ export default function Home() {
 
         <button
           onClick={() => setActiveTab("customers")}
-          className={`px-4 py-2 rounded ${
+          className={`px-4 py-2 rounded cursor-pointer ${
             activeTab === "customers"
-              ? "bg-[#16C47F] text-white"
+              ? "bg-[#16C47F] text-white hover:bg-green-700"
               : "bg-gray-200 text-gray-700"
           }`}
         >

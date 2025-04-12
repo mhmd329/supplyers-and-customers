@@ -1,22 +1,15 @@
 import React, { useState } from "react";
-import { suppliers } from "../dataCus";
 
-const CustomerTable = ({ setActiveTab }) => {
-  const [selectedSupplier, setSelectedSupplier] = useState({
-    name: "",
-    phone: "",
-    address: ""
-  });
-  const [supplierList, setSupplierList] = useState(suppliers);
-  const [newSupplier, setNewSupplier] = useState({
-    name: "",
-    phone: "",
-    address: ""
-  });
-  const [isModalOpen, setIsModalOpen] = useState(false);
+const CustomerTable = ({
+  handleEditOrder,
+  supplierList,
+  setSupplierList,
+  newSupplier,
+  setNewSupplier,
+  isModalOpen,
+  setIsModalOpen
+}) => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [editingId, setEditingId] = useState(null);
-  const [showForm, setShowForm] = useState(false);
 
   const filteredSuppliers = supplierList.filter(supplier => {
     return (
@@ -25,50 +18,6 @@ const CustomerTable = ({ setActiveTab }) => {
       supplier.address.toLowerCase().includes(searchQuery.toLowerCase())
     );
   });
-
-  const handleEditOrder = (supplier) => {
-    setEditingId(supplier.id);
-    setSelectedSupplier({
-      name: supplier.name,
-      phone: supplier.phone,
-      address: supplier.address
-    });
-    setShowForm(true);
-    setActiveTab("edit")
-  };
-
-  const handleUpdateOrder = () => {
-    setSupplierList(supplierList.map(supplier =>
-      supplier.id === editingId
-        ? {
-          ...supplier,
-          name: selectedSupplier.name,
-          phone: selectedSupplier.phone,
-          address: selectedSupplier.address
-        }
-        : supplier
-    ));
-
-    setEditingId(null);
-    setShowForm(false);
-    setSelectedSupplier({
-      name: "",
-      phone: "",
-      address: ""
-    });
-  };
-
-  const handleDeleteSupplier = (id) => {
-    setSupplierList(supplierList.filter((supplier) => supplier.id !== id));
-  };
-
-  const handleSupplierChange = (e) => {
-    const { name, value } = e.target;
-    setSelectedSupplier(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
 
   const handleAddSupplier = () => {
     const newId = Math.max(...supplierList.map(s => s.id), 0) + 1;
@@ -85,70 +34,15 @@ const CustomerTable = ({ setActiveTab }) => {
     setIsModalOpen(false);
   };
 
+  const handleDeleteSupplier = (id) => {
+    setSupplierList(supplierList.filter((supplier) => supplier.id !== id));
+  };
   return (
-    <div className="overflow-x-auto mx-2 sm:mx-0">
-
-      {showForm && (
-        <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md mb-6 mx-2 sm:mx-0">
-          <h2 className="text-lg sm:text-xl font-semibold mb-4 text-right">
-            تعديل العميل
-          </h2>
-          <div className="flex flex-col sm:flex-row gap-4 items-end">
-            <button
-              onClick={handleUpdateOrder}
-              className={`w-full sm:w-24 h-12 rounded-md shadow transition flex items-center justify-center gap-2 ${(!selectedSupplier.name || !selectedSupplier.phone || !selectedSupplier.address)
-                ? 'bg-gray-400 cursor-not-allowed'
-                : 'bg-[#16C47F] cursor-pointer text-white'
-                }`}
-              disabled={!selectedSupplier.name || !selectedSupplier.phone || !selectedSupplier.address}
-            >
-              تحديث
-            </button>
-
-            <div className="w-full sm:w-1/3">
-              <label className="block text-gray-700 mb-2 text-right">اسم العميل</label>
-              <input
-                type="text"
-                name="name"
-                value={selectedSupplier.name}
-                onChange={handleSupplierChange}
-                className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 text-right"
-                placeholder="اسم المورد"
-                required
-              />
-            </div>
-            <div className="w-full sm:w-1/3">
-              <label className="block text-gray-700 mb-2 text-right">رقم الهاتف</label>
-              <input
-                type="text"
-                name="phone"
-                value={selectedSupplier.phone}
-                onChange={handleSupplierChange}
-                className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 text-right"
-                placeholder="رقم الهاتف"
-                required
-              />
-            </div>
-
-            <div className="w-full sm:w-1/3">
-              <label className="block text-gray-700 mb-2 text-right">العنوان</label>
-              <input
-                type="text"
-                name="address"
-                value={selectedSupplier.address}
-                onChange={handleSupplierChange}
-                className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 text-right"
-                placeholder="العنوان"
-                required
-              />
-            </div>
-          </div>
-        </div>
-      )}
+    <div>
       <div className="mb-4 flex flex-col sm:flex-row justify-between items-center">
-      <button
+        <button
           onClick={() => setIsModalOpen(true)}
-          className="bg-[#16C47F] text-white px-4 py-2 rounded-lg shadow-md w-auto flex items-center gap-2"
+          className="bg-[#16C47F] hover:bg-green-700 text-white cursor-pointer px-4 py-2 rounded-lg shadow-md w-auto flex items-center gap-2"
         >
           إضافة عميل
           <span className="text-xl font-bold w-6 h-6 flex items-center justify-center border  rounded-full">
@@ -156,14 +50,14 @@ const CustomerTable = ({ setActiveTab }) => {
           </span>
         </button>
 
-       
-        <div className="relative mt-4  bg-gray-100 sm:mt-0 w-1/2 sm:w-1/3">
+
+        <div className="relative mt-4  bg-gray-50 sm:mt-0 w-1/2 sm:w-1/3">
           <input
             type="text"
             placeholder="ابحث هنا"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full p-2 pr-10 border border-gray-300 rounded-lg text-right"
+            className="w-full p-2 pr-10 border border-gray-300 rounded-xl text-right"
           />
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -180,6 +74,7 @@ const CustomerTable = ({ setActiveTab }) => {
             />
           </svg>
         </div>
+
       </div>
 
 
@@ -199,7 +94,7 @@ const CustomerTable = ({ setActiveTab }) => {
 
             <div className="grid grid-cols-1 gap-4">
               <div>
-                <label className="block text-gray-700 mb-1">اسم العميل *</label>
+                <label className="block text-gray-700 mb-1">اسم المورد *</label>
                 <input
                   type="text"
                   name="name"
@@ -245,10 +140,10 @@ const CustomerTable = ({ setActiveTab }) => {
             <div className="mt-4 flex justify-between gap-2">
               <button
                 onClick={handleAddSupplier}
-                className="bg-[#16C47F] text-white px-4 py-2 rounded-lg shadow-md"
+                className="bg-[#16C47F] hover:bg-green-700 text-white px-4 py-2 rounded-lg shadow-md"
                 disabled={!newSupplier.name || !newSupplier.phone || !newSupplier.address}
               >
-                حفظ 
+                حفظ
               </button>
 
             </div>
@@ -280,8 +175,8 @@ const CustomerTable = ({ setActiveTab }) => {
                     }`}
                 >
                   <td className="py-3 px-2 sm:px-4 flex flex-col sm:flex-row justify-center gap-1 sm:gap-2">
-                  <button
-                      className="text-red-500 border border-red-500 px-2 sm:px-3 py-1 rounded-md hover:bg-red-50 transition flex items-center justify-center gap-1 text-xs sm:text-sm"
+                    <button
+                      className="text-red-500 border  border-red-500 px-2 sm:px-3 py-1 rounded-md hover:bg-red-50 transition flex items-center justify-center gap-1 text-xs sm:text-sm cursor-pointer"
                       onClick={() => handleDeleteSupplier(supplier.id)}
                     >
                       حذف
@@ -302,7 +197,7 @@ const CustomerTable = ({ setActiveTab }) => {
                     </button>
 
                     <button
-                      className="text-[#16C47F] border border-[#16C47F] px-2 sm:px-3 py-1 rounded-md transition flex items-center justify-center gap-1 text-xs sm:text-sm"
+                      className="text-[#16C47F] hover:bg-green-700  cursor-pointer border border-[#16C47F] px-2 sm:px-3 py-1 rounded-md transition flex items-center justify-center gap-1 text-xs sm:text-sm"
                       onClick={() => handleEditOrder(supplier)}
                     >
                       عرض
@@ -327,6 +222,7 @@ const CustomerTable = ({ setActiveTab }) => {
                         />
                       </svg>
                     </button>
+
                   </td>
                   <td className="py-3 px-4 text-sm sm:text-base">{supplier.address}</td>
                   <td className="py-3 px-4 text-sm sm:text-base">{supplier.phone}</td>
@@ -338,7 +234,8 @@ const CustomerTable = ({ setActiveTab }) => {
         </div>
       )}
     </div>
-  );
+  )
+
 };
 
 export default CustomerTable;

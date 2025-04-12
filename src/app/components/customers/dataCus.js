@@ -5,10 +5,6 @@ export const suppliers = [
     { id: 104, name: "محمود حسين", address: "جيزة/كعابيش", phone: "0133333333" },
 ];
 
-export const tableConfig = {
-    headers: ["الاسم", "الهاتف", "العنوان"],
-    dataKeys: ["name", "phone", "address"]
-};
 
 export const invoices = [
     {
