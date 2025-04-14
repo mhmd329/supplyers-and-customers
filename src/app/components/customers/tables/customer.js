@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { suppliers } from "../dataCus";
 import CustomerTable from "./CustomerTable";
 import InvoicesTableCus from "./InvoicesTableCus";
+
 const Customer = ({ setActiveTab, activeTab, subTab, setSubTab }) => {
   const [selectedSupplier, setSelectedSupplier] = useState({
     name: "",

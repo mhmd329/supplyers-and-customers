@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { suppliers } from "../data";
-import SuppliersTable from "./suppliersTable";
+import SuppliersTable from "./SupTable";
 import QuotationsTable from "./QuotationsTable";
 import InvoicesTable from "./InvoicesTable";
-
 const Suppliers = ({ setActiveTab, activeTab, subTab, setSubTab }) => {
   const [selectedSupplier, setSelectedSupplier] = useState({
     name: "",

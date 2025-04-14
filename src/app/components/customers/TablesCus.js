@@ -1,6 +1,7 @@
 import React from "react";
+import Customer from "./tables/customer";
 import DuesTableCus from "./tables/DuesTableCus";
-import Customer from "./tables/customer"; 
+
 const Tables = ({ setActiveTab, activeTab, subTab ,setSubTab }) => {
   return (
     <div className="p-4 bg-white rounded-lg shadow-md">
