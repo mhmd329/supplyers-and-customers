@@ -24,13 +24,15 @@ const QuotationsTable = () => {
     const [showModal, setShowModal] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
 
-    const handleQuotationChange = (e) => {
-        const { name, value } = e.target;
-        setNewQuotation(prev => ({
-            ...prev,
-            [name]: value
-        }));
+    const handlePDFUpload = (e) => {
+        const file = e.target.files[0];
+        if (file && file.type === "application/pdf") {
+            console.log("تم رفع الملف:", file);
+        } else {
+            alert("الرجاء اختيار ملف PDF فقط.");
+        }
     };
+
 
     const handleProductChange = (e, index) => {
         const { name, value } = e.target;
@@ -91,7 +93,7 @@ const QuotationsTable = () => {
         <div className="overflow-x-auto mx-2 sm:mx-0">
             <div className="flex justify-between items-center flex-wrap gap-4 mb-4" dir="rtl">
 
-                <div className="relative mt-4 bg-gray-50 sm:mt-0 w-1/2 sm:w-1/3 mb-4 ml-auto">
+                <div className="relative mt-4 bg-white sm:mt-0 w-1/2 sm:w-1/3 mb-4 ml-auto">
                     <input
                         type="text"
                         placeholder="ابحث هنا"
@@ -249,106 +251,149 @@ const QuotationsTable = () => {
                     </div>
                 </div>
             )}
-{showModal && (
-    <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50">
-        <div dir="rtl" className="bg-white p-6 rounded-lg shadow-lg w-full sm:w-[650px] flex flex-col justify-start items-center relative">
-            <button
-                className="absolute top-2 right-2 text-gray-700 cursor-pointer p-2 rounded-full hover:bg-gray-200"
-                onClick={() => setShowModal(false)}
-            >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
+            {showModal && (
+                <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50">
+                    <div dir="rtl" className="bg-white p-6 rounded-lg shadow-lg w-full sm:w-[650px] flex flex-col justify-start items-center relative">
 
-            <h2 className="text-xl font-semibold mb-4 text-gray-800">إضافة عرض </h2>
+                        <button
+                            className="absolute top-2 right-2 text-gray-700 cursor-pointer p-2 rounded-full hover:bg-gray-200"
+                            onClick={() => setShowModal(false)}
+                        >
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
 
-            {/* رأس الجدول */}
-            <div className="w-full mb-2">
-                <div className="grid grid-cols-5 gap-4 text-sm font-medium text-gray-700 text-center">
-                    <div>اسم المنتج</div>
-                    <div>فئة المنتج</div>
-                    <div>وحدة البيع</div>
-                    <div>الكمية</div>
-                    <div></div>
-                </div>
-            </div>
+                        <h2 className="text-xl font-semibold mb-4 text-gray-800">إضافة عرض </h2>
+                        <p className="w-full text-right text-sm text-gray-700">يمكنك تسجيل العرض يدويا او من خلال رفع صورة العرض</p>
+                        {/* 🆕 رفع ملف PDF */}
+                        <div className="w-full mb-6 flex flex-col items-center justify-center text-center shadow-md mt-4 pb-4">
+                            {/* أيقونة طابعة */}
+                            <div className="text-[#16C47F] mb-2">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="h-12 w-12"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    strokeWidth={1.5}
+                                >
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="M6 9V4h12v5m-1 7h2a2 2 0 002-2v-3a2 2 0 00-2-2H5a2 2 0 00-2 2v3a2 2 0 002 2h2m10 0v4H6v-4h10z"
+                                    />
+                                </svg>
+                            </div>
 
-            {/* صفوف المنتجات */}
-            {newQuotation.products.map((product, index) => {
-                const isLastRow = index === newQuotation.products.length - 1;
+                            {/* الزر المخصص لرفع الملف */}
+                            <label
+                                htmlFor="pdf-upload"
+                                className="cursor-pointer text-gray-700 font-medium  hover:bg-gray-200 px-4 py-2 rounded-md transition"
+                            >
+                                ارفع ملفاتك هنا <span className="text-[#16C47F]">أو اضغط للرفع</span>
+                            </label>
 
-                return (
-                    <div key={index} className="w-full mb-2">
-                        <div className="grid grid-cols-5 gap-4 items-center">
+                            {/* عنصر رفع الملف */}
                             <input
-                                type="text"
-                                name="productName"
-                                value={product.productName}
-                                onChange={(e) => handleProductChange(e, index)}
-                                className="p-2 border border-gray-300 rounded-lg text-right"
-                                placeholder="اسم المنتج"
+                                id="pdf-upload"
+                                type="file"
+                                accept="application/pdf"
+                                onChange={handlePDFUpload}
+                                className="hidden"
                             />
-                            <input
-                                type="text"
-                                name="category"
-                                value={product.category}
-                                onChange={(e) => handleProductChange(e, index)}
-                                className="p-2 border border-gray-300 rounded-lg text-right"
-                                placeholder="فئة المنتج"
-                            />
-                            <input
-                                type="text"
-                                name="unit"
-                                value={product.unit}
-                                onChange={(e) => handleProductChange(e, index)}
-                                className="p-2 border border-gray-300 rounded-lg text-right"
-                                placeholder="وحدة البيع"
-                            />
-                            <input
-                                type="number"
-                                name="quantity"
-                                value={product.quantity}
-                                onChange={(e) => handleProductChange(e, index)}
-                                className="p-2 border border-gray-300 rounded-lg text-right w-full"
-                                placeholder="الكمية"
-                            />
-
-                            <div className="flex justify-start gap-2">
-                                {isLastRow && (
-                                    <>
-                                        <button
-                                            onClick={() => handleRemoveProductRow(index)}
-                                            className="bg-red-100 text-red-600 font-bold px-3 py-1 rounded-lg hover:bg-red-200"
-                                        >
-                                            ×
-                                        </button>
-                                        <button
-                                            onClick={handleAddProductRow}
-                                            className="bg-gray-200 text-xl px-3 py-1 rounded-lg hover:bg-gray-300"
-                                        >
-                                            +
-                                        </button>
-                                    </>
-                                )}
+                        </div>
+                        {/* رأس الجدول */}
+                        <div className="w-full mb-2 mr-auto">
+                            <div className="grid grid-cols-[60px_1fr_1fr_1fr_1fr] gap-4 text-sm font-medium text-black text-center">
+                                <div></div> {/* العمود الخاص بالأزرار */}
+                                <div>اسم المنتج</div>
+                                <div>فئة المنتج</div>
+                                <div>وحدة البيع</div>
+                                <div>الكمية</div>
                             </div>
                         </div>
-                    </div>
-                );
-            })}
 
-            {/* زر الحفظ */}
-            <div className="w-full mt-4 flex justify-end">
-                <button
-                    onClick={handleAddQuotation}
-                    className="w-22 bg-[#16C47F] cursor-pointer text-white px-4 py-2 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
-                >
-                    حفظ
-                </button>
-            </div>
-        </div>
-    </div>
-)}
+                        {/* صفوف المنتجات */}
+                        {newQuotation.products.map((product, index) => {
+                            const isLastRow = index === newQuotation.products.length - 1;
+
+                            return (
+                                <div key={index} className="w-full mb-2">
+                                    <div className="grid grid-cols-5 gap-4 items-center">
+
+                                        {/* العمود الأول: أزرار + / × */}
+                                        <div className="flex justify-end">
+                                            {isLastRow && (
+                                                <>
+                                                    {/* <button
+                onClick={() => handleRemoveProductRow(index)}
+                className="bg-red-100 text-red-600 font-bold px-3 py-1 rounded-lg hover:bg-red-200"
+              >
+                ×
+              </button> */}
+                                                    <button
+                                                        onClick={handleAddProductRow}
+                                                        className="text-black cursor-pointer text-xl px-3 py-1 rounded-lg hover:scale-110"
+                                                    >
+                                                        <span className="text-xl font-bold w-6 h-6 flex items-center justify-center border  rounded-full">
+                                                            +
+                                                        </span>
+                                                    </button>
+                                                </>
+                                            )}
+                                        </div>
+
+                                        {/* باقي الأعمدة */}
+                                        <input
+                                            type="text"
+                                            name="productName"
+                                            value={product.productName}
+                                            onChange={(e) => handleProductChange(e, index)}
+                                            className="p-2 border border-gray-300 rounded-lg text-right"
+                                            placeholder="اسم المنتج"
+                                        />
+                                        <input
+                                            type="text"
+                                            name="category"
+                                            value={product.category}
+                                            onChange={(e) => handleProductChange(e, index)}
+                                            className="p-2 border border-gray-300 rounded-lg text-right"
+                                            placeholder="فئة المنتج"
+                                        />
+                                        <input
+                                            type="text"
+                                            name="unit"
+                                            value={product.unit}
+                                            onChange={(e) => handleProductChange(e, index)}
+                                            className="p-2 border border-gray-300 rounded-lg text-right"
+                                            placeholder="وحدة البيع"
+                                        />
+                                        <input
+                                            type="number"
+                                            name="quantity"
+                                            value={product.quantity}
+                                            onChange={(e) => handleProductChange(e, index)}
+                                            className="p-2 border border-gray-300 rounded-lg text-right w-full"
+                                            placeholder="الكمية"
+                                        />
+                                    </div>
+                                </div>
+                            );
+                        })}
+
+                        {/* زر الحفظ */}
+                        <div className="w-full mt-4 flex justify-end">
+                            <button
+                                onClick={handleAddQuotation}
+                                className="w-22 bg-[#16C47F] cursor-pointer text-white px-4 py-2 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
+                            >
+                                حفظ
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
 
         </div>
     );

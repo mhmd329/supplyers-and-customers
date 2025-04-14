@@ -109,7 +109,7 @@ const Customer = ({ setActiveTab, activeTab, subTab, setSubTab }) => {
               />
             </div>
             <div className="w-full sm:w-1/3">
-              <label className="block text-gray-700 mb-2 text-right">اسم المورد</label>
+              <label className="block text-gray-700 mb-2 text-right"> الاسم</label>
               <input
                 type="text"
                 name="name"

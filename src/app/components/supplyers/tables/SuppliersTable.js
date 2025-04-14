@@ -51,7 +51,7 @@ const SuppliersTable = ({
         </button>
 
 
-        <div className="relative mt-4  bg-gray-50 sm:mt-0 w-1/2 sm:w-1/3">
+        <div className="relative mt-4  bg-white sm:mt-0 w-1/2 sm:w-1/3">
           <input
             type="text"
             placeholder="ابحث هنا"
@@ -92,7 +92,7 @@ const SuppliersTable = ({
               إضافة مورد جديد
             </h3>
 
-            <div className="grid grid-cols-1 gap-4">
+            <div dir="rtl" className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-gray-700 mb-1">اسم المورد *</label>
                 <input
@@ -103,7 +103,7 @@ const SuppliersTable = ({
                     setNewSupplier({ ...newSupplier, name: e.target.value })
                   }
                   className="w-full p-2 border border-gray-300 rounded-lg"
-                  placeholder="أدخل اسم المورد"
+                  placeholder=" اسم المورد"
                   required
                 />
               </div>
@@ -117,7 +117,7 @@ const SuppliersTable = ({
                     setNewSupplier({ ...newSupplier, phone: e.target.value })
                   }
                   className="w-full p-2 border border-gray-300 rounded-lg"
-                  placeholder="أدخل رقم الهاتف"
+                  placeholder=" رقم الهاتف"
                   required
                 />
               </div>
@@ -131,7 +131,7 @@ const SuppliersTable = ({
                     setNewSupplier({ ...newSupplier, address: e.target.value })
                   }
                   className="w-full p-2 border border-gray-300 rounded-lg"
-                  placeholder="أدخل العنوان"
+                  placeholder=" العنوان"
                   required
                 />
               </div>

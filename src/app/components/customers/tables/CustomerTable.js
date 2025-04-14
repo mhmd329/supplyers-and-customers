@@ -51,7 +51,7 @@ const CustomerTable = ({
         </button>
 
 
-        <div className="relative mt-4  bg-gray-50 sm:mt-0 w-1/2 sm:w-1/3">
+        <div className="relative mt-4  bg-white sm:mt-0 w-1/2 sm:w-1/3">
           <input
             type="text"
             placeholder="ابحث هنا"

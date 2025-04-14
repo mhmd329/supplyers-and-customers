@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import logo from "../assets/logo.png"
+import doc from "../assets/imgwface.jpeg"
 const NavBar = () => {
 
 
@@ -12,7 +13,7 @@ const NavBar = () => {
         <div className="flex items-center gap-3">
           <p className="text-lg font-semibold text-gray-800">د/ أحمد إبراهيم</p>
           <Image
-            src="https://s3-alpha-sig.figma.com/img/50e2/bbc2/3961dfb1fb031d40ddc0d9f18d6f6392?Expires=1743984000&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=Qe42djhSzpBGLUN5CKkTp~Kj7VYDQH3aejw6Wwt5sa3tbTLJUMSxHmpclSIxtfDi0nTn5bQ76pFFaK1fl0vGZOghNVqLOaPcu7x4zGchM-ky2ux8xNegT9v4whNiX6YFyVap~CJO5eFdo2iTprzJb~vB4Mp3i9bBT0GqxySJhu6uNjRd921IG6KXuVfXTsMvb~R7Ilmrx50DacQ4xsa9MXb4coT7wLk2mNf6XhBdmjWcioqi1RlVdtcJGEsAQeqhtArElIsARpCHgwGPQ07r6g7xPpiQ0uncFLOYKUetinSODGGmI97ikNivGESK4Xrp2Iy-dpJQRNNx75fja2DhRw__"
+            src={doc}
             alt="Logo"
             width={40}
             height={0}
@@ -44,7 +45,7 @@ const NavBar = () => {
 
 
         <div className=" flex mt-4 md:mt-0">
-          <p className="text-gray-700">مرحباً بك في شركة <span className="font-bold ">SP</span></p>
+          <p className="text-gray-700 mt-2"> <span className="font-bold ">SP</span> مرحباً بك في شركة </p>
           <Image
             width={27}
             height={27}
@@ -60,7 +61,7 @@ const NavBar = () => {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="w-6 h-6 text-gray-600 mt-4"
+            className="w-6 h-6 text-gray-600 mt-4 ml-3"
           >
             <polyline points="11 17 6 12 11 7" />
             <polyline points="18 17 13 12 18 7" />

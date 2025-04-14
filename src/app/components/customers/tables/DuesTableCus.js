@@ -14,7 +14,7 @@ const DuesTableCus = () => {
 
   return (
     <div className="overflow-x-auto mx-2 sm:mx-0">
-      <div className="relative mt-4 bg-gray-50 sm:mt-0 w-1/2 sm:w-1/3 mb-4 ml-auto">
+      <div className="relative mt-4 bg-white sm:mt-0 w-1/2 sm:w-1/3 mb-4 ml-auto">
         <input
           type="text"
           placeholder="ابحث هنا"

@@ -16,7 +16,7 @@ const InvoicesTable = () => {
     return (
         <div className="overflow-x-auto mx-2 sm:mx-0">
             
-            <div className="relative mt-4 bg-gray-50 sm:mt-0 w-1/2 sm:w-1/3 mb-4 ml-auto">
+            <div className="relative mt-4 bg-white sm:mt-0 w-1/2 sm:w-1/3 mb-4 ml-auto">
             <input
             type="text"
             placeholder="ابحث هنا"
@@ -125,7 +125,7 @@ const InvoicesTable = () => {
                                         <th className="py-3 px-4 border-b">الضريبة</th>
                                         <th className="py-3 px-4 border-b">الخصم</th>
                                         <th className="py-3 px-4 border-b">الاجمالي</th>
-                                        <th className="py-3 px-4 border-b cursor-pointer" onClick={()=>setShowInvDet(prev => !prev)}>وحدة الشراء</th>
+                                        <th className="py-3 px-4 border-b cursor-pointer hover:scale-125 transition" onClick={()=>setShowInvDet(prev => !prev)}>وحدة الشراء</th>
                                        <th className="py-3 px-4 border-b">الكمية</th>
                                         <th className="py-3 px-4 border-b">اسم الصنف</th>
                                         <th className="py-3 px-4 border-b">الكود</th>

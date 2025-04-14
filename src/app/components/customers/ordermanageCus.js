@@ -3,8 +3,8 @@ import React, { useState } from "react";
 import Tables from "./TablesCus";
 
 const OrderManagementCus = () => {
-  const [activeTab, setActiveTab] = useState("suppliers");
-  const [subTab, setSubTab] = useState("suppliers");
+  const [activeTab, setActiveTab] = useState("dues");
+  const [subTab, setSubTab] = useState("dues");
 
   const handleSelection = (tab, newSubTab = null) => {
     setActiveTab(tab);
