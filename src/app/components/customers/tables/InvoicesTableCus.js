@@ -14,9 +14,9 @@ const InvoicesTableCus = () => {
 
 
     return (
-        <div className="overflow-x-auto mx-2 sm:mx-0">
+        <div className="overflow-x-auto shadow-md mx-2 sm:mx-0">
             
-            <div className="relative mt-4 bg-white sm:mt-0 w-1/2 sm:w-1/3 mb-4 ml-auto">
+            <div className="relative mt-4 sm:mt-0 w-1/2 sm:w-1/3 mb-4 ml-auto">
             <input
             type="text"
             placeholder="ابحث هنا"
@@ -42,7 +42,7 @@ const InvoicesTableCus = () => {
 
 
             {filteredInvoices.length === 0 ? (
-                <div className="text-center py-8 text-gray-500 bg-white rounded-lg shadow">
+                <div className="text-center py-8 text-gray-500 rounded-lg shadow">
                     لا توجد بيانات متاحة
                 </div>
             ) : (
@@ -107,7 +107,7 @@ const InvoicesTableCus = () => {
             )}
             {selectedInvoice && (
                 <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50 p-4">
-                    <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-[90%] md:max-w-[900px] max-h-[90vh] overflow-auto relative">
+                    <div className=" p-6 rounded-lg shadow-lg w-full max-w-[90%] md:max-w-[900px] max-h-[90vh] overflow-auto relative">
                         <button
                             className="text-black rounded-full w-8 h-8 flex items-center justify-center absolute top-4 left-4 cursor-pointer"
                             onClick={() => setSelectedInvoice(null)}
@@ -155,7 +155,7 @@ const InvoicesTableCus = () => {
                             </table>
                             {showTaxModal && (
   <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50 p-4">
-    <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-[90%] md:max-w-md max-h-[90vh] overflow-y-auto relative">
+    <div className="ß p-6 rounded-lg shadow-lg w-full max-w-[90%] md:max-w-md max-h-[90vh] overflow-y-auto relative">
       <button
         className="text-black rounded-full w-8 h-8 flex items-center justify-center absolute top-4 left-4 cursor-pointer"
         onClick={() => setShowTaxModal(false)}

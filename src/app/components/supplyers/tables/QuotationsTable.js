@@ -93,7 +93,7 @@ const QuotationsTable = () => {
         <div className="overflow-x-auto mx-2 sm:mx-0">
             <div className="flex justify-between items-center flex-wrap gap-4 mb-4" dir="rtl">
 
-                <div className="relative mt-4 bg-white sm:mt-0 w-1/2 sm:w-1/3 mb-4 ml-auto">
+                <div className="relative mt-4 sm:mt-0 w-1/2 sm:w-1/3 mb-4 ml-auto">
                     <input
                         type="text"
                         placeholder="ابحث هنا"
@@ -127,12 +127,12 @@ const QuotationsTable = () => {
 
 
             {filteredQuotations.length === 0 ? (
-                <div className="text-center py-8 text-gray-500 bg-white rounded-lg shadow">
+                <div className="text-center py-8 text-gray-500 rounded-lg shadow">
                     لا توجد بيانات متاحة
                 </div>
             ) : (
                 <div className="shadow-md rounded-lg overflow-x-auto">
-                    <table className="min-w-full bg-white">
+                    <table className="min-w-full">
                         <thead>
                             <tr className="bg-[#D0F3E5] text-gray-700">
                                 <th className="py-3 px-4 border-b">خيارات</th>
@@ -204,10 +204,10 @@ const QuotationsTable = () => {
             )}
             {selectedQuotation && (
                 <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50 p-4">
-                    <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-5xl relative text-center overflow-x-auto">
+                    <div className=" p-6 rounded-lg shadow-lg w-full max-w-5xl relative text-center overflow-x-auto">
                         <h2 className="text-2xl font-semibold mb-6 text-gray-700">عرض اسعار</h2>
 
-                        <table className="min-w-full bg-white">
+                        <table className="min-w-full">
                             <thead>
                                 <tr className="bg-[#D0F3E5] text-gray-700">
                                     <th className="py-3 px-6 border-b w-[20%]">الاجمالي</th>
@@ -253,7 +253,7 @@ const QuotationsTable = () => {
             )}
             {showModal && (
                 <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50">
-                    <div dir="rtl" className="bg-white p-6 rounded-lg shadow-lg w-full sm:w-[650px] flex flex-col justify-start items-center relative">
+                    <div dir="rtl" className=" p-6 rounded-lg shadow-lg w-full sm:w-[650px] flex flex-col justify-start items-center relative">
 
                         <button
                             className="absolute top-2 right-2 text-gray-700 cursor-pointer p-2 rounded-full hover:bg-gray-200"
@@ -326,12 +326,7 @@ const QuotationsTable = () => {
                                         <div className="flex justify-end">
                                             {isLastRow && (
                                                 <>
-                                                    {/* <button
-                onClick={() => handleRemoveProductRow(index)}
-                className="bg-red-100 text-red-600 font-bold px-3 py-1 rounded-lg hover:bg-red-200"
-              >
-                ×
-              </button> */}
+
                                                     <button
                                                         onClick={handleAddProductRow}
                                                         className="text-black cursor-pointer text-xl px-3 py-1 rounded-lg hover:scale-110"

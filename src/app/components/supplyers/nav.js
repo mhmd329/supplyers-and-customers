@@ -6,7 +6,7 @@ const NavBar = () => {
 
 
   return (
-    <nav className="bg-white shadow-md px-6 py-4 sticky top-0 left-0 right-0 w-full z-50">
+    <nav className=" shadow-md px-6 py-4 sticky top-0 left-0 right-0 w-full z-50">
       <div className="container mx-auto flex flex-col md:flex-row md:items-center md:justify-between">
 
 
@@ -26,7 +26,7 @@ const NavBar = () => {
           <input
             type="text"
             placeholder="ابحث هنا"
-            className="w-64 px-10 py-2 border text-right border-gray-300 rounded-md bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full pr-10 py-2 border text-right border-gray-300 rounded-md bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -36,7 +36,7 @@ const NavBar = () => {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="w-5 h-5 text-gray-500 absolute inset-y-0 left-3 my-auto"
+            className="w-5 h-5 text-gray-500 absolute inset-y-0 right-3 my-auto"
           >
             <circle cx="11" cy="11" r="8" />
             <line x1="21" y1="21" x2="16.65" y2="16.65" />
@@ -47,11 +47,10 @@ const NavBar = () => {
         <div className=" flex mt-4 md:mt-0">
           <p className="text-gray-700 mt-2"> <span className="font-bold ">SP</span> مرحباً بك في شركة </p>
           <Image
-            width={27}
-            height={27}
+           
             alt="logo"
             src={logo}
-            className="ml-4"
+            className="ml-4 mt-2 w-[27px] h-[27px]"
           />
           <svg
             xmlns="http://www.w3.org/2000/svg"

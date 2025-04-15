@@ -34,7 +34,7 @@ export default function Home() {
         </button>
       </div>
 
-      <div className="px-4">
+      <div className="px-4 ">
         {activeTab === "suppliers" && <OrderManagement />}
         {activeTab === "customers" && <OrderManagementCus />}
       </div>

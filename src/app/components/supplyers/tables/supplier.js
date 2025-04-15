@@ -68,10 +68,10 @@ const Suppliers = ({ setActiveTab, activeTab, subTab, setSubTab }) => {
   };
 
   return (
-    <div className="overflow-x-auto mx-2 sm:mx-0">
+    <div className="overflow-x-auto mx-2 shadow-md sm:mx-0 ">
 
       {showForm && (
-        <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md mb-6 mx-2 sm:mx-0">
+        <div className=" p-4 sm:p-6 rounded-lg mb-6 mx-2 sm:mx-0">
 
           <div className="flex flex-col sm:flex-row gap-4 items-end">
             <button
@@ -127,21 +127,21 @@ const Suppliers = ({ setActiveTab, activeTab, subTab, setSubTab }) => {
         </div>
       )}
       {activeTab === "edit" && (
-        <div className="flex flex-col sm:flex-row gap-2 mb-4 mt-2">
+        <div className="flex flex-col sm:flex-row mb-4 mt-2">
           <button
             onClick={() => handleSelection("edit", "invoices")}
-            className={`px-4 py-2 rounded-lg shadow-md cursor-pointer ${subTab === "invoices"
-                ? "bg-gray-50 text-gray-900"
-                : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+            className={`px-4 py-2 shadow-md cursor-pointer ${subTab === "invoices"
+                ? "bg-white text-gray-900"
+                : "bg-gray-100 text-gray-700 hover:bg-gray-300"
               }`}
           >
             الفواتير
           </button>
           <button
             onClick={() => handleSelection("edit", "quotations")}
-            className={`px-4 py-2 rounded-lg shadow-md cursor-pointer ${subTab === "quotations"
-                ? "bg-gray-50 text-gray-900"
-                : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+            className={`px-4 py-2 shadow-md cursor-pointer ${subTab === "quotations"
+                ? "bg-white text-gray-900"
+                : "bg-gray-100 text-gray-700 hover:bg-gray-300"
               }`}
           >
             عرض الأسعار

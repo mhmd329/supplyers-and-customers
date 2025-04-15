@@ -38,7 +38,7 @@ const SuppliersTable = ({
     setSupplierList(supplierList.filter((supplier) => supplier.id !== id));
   };
   return (
-    <div>
+    <div className="shadow-md">
       <div className="mb-4 flex flex-col sm:flex-row justify-between items-center">
         <button
           onClick={() => setIsModalOpen(true)}
@@ -51,7 +51,7 @@ const SuppliersTable = ({
         </button>
 
 
-        <div className="relative mt-4  bg-white sm:mt-0 w-1/2 sm:w-1/3">
+        <div className="relative mt-4  sm:mt-0 w-1/2 sm:w-1/3">
           <input
             type="text"
             placeholder="ابحث هنا"
@@ -80,7 +80,7 @@ const SuppliersTable = ({
 
       {isModalOpen && (
         <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50">
-          <div className="bg-white p-5 rounded-lg shadow-lg w-96 relative">
+          <div className=" p-5 rounded-lg shadow-lg w-96 relative">
             <button
               onClick={() => setIsModalOpen(false)}
               className="absolute top-2 left-2 text-black px-2 py-1 rounded-lg cursor-pointer"
@@ -153,12 +153,12 @@ const SuppliersTable = ({
 
 
       {filteredSuppliers.length === 0 ? (
-        <div className="text-center py-8 text-gray-500 bg-white rounded-lg shadow">
+        <div className="text-center py-8 text-gray-500  rounded-lg shadow">
           لا توجد بيانات متاحة
         </div>
       ) : (
         <div className="shadow-md rounded-lg overflow-x-auto">
-          <table className="min-w-full bg-white">
+          <table className="min-w-full">
             <thead>
               <tr className="bg-[#D0F3E5] text-gray-700">
                 <th className="py-3 px-4 border-b text-sm sm:text-base">خيارات</th>

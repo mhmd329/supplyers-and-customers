@@ -13,8 +13,8 @@ const DuesTable = () => {
   });
 
   return (
-    <div className="overflow-x-auto mx-2 sm:mx-0">
-      <div className="relative mt-4 bg-white sm:mt-0 w-1/2 sm:w-1/3 mb-4 ml-auto">
+    <div className="overflow-x-auto shadow-md mx-2 sm:mx-0">
+      <div className="relative mt-4 sm:mt-0 w-1/2 sm:w-1/3 mb-4 ml-auto">
         <input
           type="text"
           placeholder="ابحث هنا"
@@ -39,12 +39,12 @@ const DuesTable = () => {
       </div>
 
       {filteredDues.length === 0 ? (
-        <div className="text-center py-8 text-gray-500 bg-white rounded-lg shadow">
+        <div className="text-center py-8 text-gray-500 rounded-lg ">
           لا توجد بيانات متاحة
         </div>
       ) : (
         <div className="shadow-md rounded-lg overflow-hidden">
-          <table className="min-w-full bg-white">
+          <table className="min-w-full">
             <thead>
               <tr className="bg-[#D0F3E5] text-gray-700">
                 <th className="py-3 px-4 border-b text-sm sm:text-base">المبلغ المتبقي</th>

@@ -26,30 +26,30 @@ const OrderManagement = () => {
 
   return (
     <>
-      <h2 dir="rtl" className="text-3xl font-bold text-gray-800 mb-2 mt-6 px-2 sm:px-0">
+      <h2 dir="rtl" className="text-3xl font-bold text-gray-800 mt-6 px-2 sm:px-0">
         الموردين
       </h2>
 
-      <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md mb-2 mx-2 sm:mx-0 flex flex-col sm:flex-row justify-between gap-4">
+      <div className="p-4 sm:p-6 rounded-lg mx-2 sm:mx-0 flex flex-col sm:flex-row justify-between gap-4">
         
         <div className="flex flex-col gap-2">
-          <div className="flex flex-col sm:flex-row gap-2">
+          <div className="flex flex-col sm:flex-row">
             <button
               onClick={() => handleSelection("dues")}
-              className={`px-4 py-2 rounded-lg shadow-md cursor-pointer ${
+              className={`px-4 py-2 shadow-md cursor-pointer ${
                 activeTab === "dues"
-                  ? "bg-gray-50 text-gray-900"
-                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                  ? "bg-white text-gray-900"
+                  : "bg-gray-100 text-gray-700 hover:bg-gray-300"
               }`}
             >
-              المبالغ المستحقة
+            مبالغ المستحقة
             </button>
             <button
               onClick={() => handleSelection("suppliers")}
-              className={`px-4 py-2 rounded-lg shadow-md cursor-pointer ${
+              className={`px-4 py-2 shadow-md cursor-pointer ${
                 activeTab === "suppliers" && !subTab
-                  ? "bg-gray-50 text-gray-900"
-                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                  ? "bg-white text-gray-900"
+                  : "bg-gray-100 text-gray-700 hover:bg-gray-300"
               }`}
             >
               الموردين
@@ -73,7 +73,7 @@ const OrderManagement = () => {
       </div>
 
 
-      <div>
+      <div className="shadow-lg border-gray-400 border-[0.5px]">
         <Tables
           setActiveTab={setActiveTab}
           setSubTab={setSubTab}

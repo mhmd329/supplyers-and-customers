@@ -1,2 +1,8 @@
 @import "tailwindcss";
 
+@import url('https://fonts.googleapis.com/css2?family=Cairo&display=swap');
+
+body {
+  font-family: 'Cairo', sans-serif;
+  background-color: #F9F9F9;
+}

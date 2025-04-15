@@ -16,7 +16,7 @@ const InvoicesTable = () => {
     return (
         <div className="overflow-x-auto mx-2 sm:mx-0">
             
-            <div className="relative mt-4 bg-white sm:mt-0 w-1/2 sm:w-1/3 mb-4 ml-auto">
+            <div className="relative mt-4 sm:mt-0 w-1/2 sm:w-1/3 mb-4 ml-auto">
             <input
             type="text"
             placeholder="ابحث هنا"
@@ -42,12 +42,12 @@ const InvoicesTable = () => {
 
 
             {filteredInvoices.length === 0 ? (
-                <div className="text-center py-8 text-gray-500 bg-white rounded-lg shadow">
+                <div className="text-center py-8 text-gray-500 rounded-lg shadow">
                     لا توجد بيانات متاحة
                 </div>
             ) : (
                 <div className="shadow-md rounded-lg overflow-x-auto">
-                    <table className="min-w-full bg-white">
+                    <table className="min-w-full">
                         <thead>
                             <tr className="bg-[#D0F3E5] text-gray-700">
                                 <th className="py-3 px-4 border-b">خيارات</th>
@@ -107,7 +107,7 @@ const InvoicesTable = () => {
             )}
             {selectedInvoice && (
                 <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50 p-4">
-                    <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-[90%] md:max-w-[900px] max-h-[90vh] overflow-auto relative">
+                    <div className=" p-6 rounded-lg shadow-lg w-full max-w-[90%] md:max-w-[900px] max-h-[90vh] overflow-auto relative">
                         <button
                             className="text-black rounded-full w-8 h-8 flex items-center justify-center absolute top-4 left-4 cursor-pointer"
                             onClick={() => setSelectedInvoice(null)}
@@ -118,7 +118,7 @@ const InvoicesTable = () => {
                         <h2 className="text-xl font-semibold mb-4 text-center text-gray-700">عرض الفاتورة</h2>
 
                         <div className="overflow-x-auto">
-                            <table className="min-w-full bg-white border rounded-md text-sm">
+                            <table className="min-w-ful border rounded-md text-sm">
                                 <thead>
                                     <tr className="bg-[#D0F3E5] text-gray-700">
                                         <th className="py-3 px-4 border-b">اجمالي الفاتورة</th>
@@ -155,7 +155,7 @@ const InvoicesTable = () => {
                             </table>
                             {showTaxModal && (
   <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50 p-4">
-    <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-[90%] md:max-w-md max-h-[90vh] overflow-y-auto relative">
+    <div className=" p-6 rounded-lg shadow-lg w-full max-w-[90%] md:max-w-md max-h-[90vh] overflow-y-auto relative">
       <button
         className="text-black rounded-full w-8 h-8 flex items-center justify-center absolute top-4 left-4 cursor-pointer"
         onClick={() => setShowTaxModal(false)}
@@ -199,7 +199,7 @@ const InvoicesTable = () => {
 
 
 {showInvDet&&(
-      <table className="min-w-full bg-white border rounded-md overflow-hidden text-sm mt-4">
+      <table className="min-w-full border rounded-md overflow-hidden text-sm mt-4">
       <thead>
           <tr className="bg-gray-300 text-gray-700">
               <th className="py-3 px-4 border-b">وحدة البيع</th>
@@ -227,7 +227,7 @@ const InvoicesTable = () => {
                       
                             <h2>500026</h2>
                             <h3 dir="rtl">تفاصيل الفاتورة</h3>
-                            <table className="min-w-full bg-white border rounded-md overflow-hidden text-sm mt-4">
+                            <table className="min-w-full border rounded-md overflow-hidden text-sm mt-4">
                                 <thead>
                                     <tr className="bg-gray-300 text-gray-700">
                                         <th className="py-3 px-4 border-b">طريقة الدفع</th>
