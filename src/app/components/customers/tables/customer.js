@@ -71,7 +71,7 @@ const Customer = ({ setActiveTab, activeTab, subTab, setSubTab }) => {
     <div className="overflow-x-auto mx-2 sm:mx-0">
 
       {showForm && (
-        <div className=" p-4 sm:p-6 rounded-lg shadow-md mb-6 mx-2 sm:mx-0">
+        <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md mb-6 mx-2 sm:mx-0">
 
           <div className="flex flex-col sm:flex-row gap-4 items-end">
             <button

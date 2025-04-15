@@ -80,7 +80,7 @@ const SuppliersTable = ({
 
       {isModalOpen && (
         <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50">
-          <div className=" p-5 rounded-lg shadow-lg w-96 relative">
+          <div className=" p-5 bg-white rounded-lg shadow-lg w-96 relative">
             <button
               onClick={() => setIsModalOpen(false)}
               className="absolute top-2 left-2 text-black px-2 py-1 rounded-lg cursor-pointer"
@@ -122,6 +122,20 @@ const SuppliersTable = ({
                 />
               </div>
               <div>
+                <label className="block text-gray-700 mb-1">نوع المورد *</label>
+                <input
+                  type="text"
+                  name="address"
+                  value={newSupplier.address}
+                  onChange={(e) =>
+                    setNewSupplier({ ...newSupplier, address: e.target.value })
+                  }
+                  className="w-full p-2 border border-gray-300 rounded-lg"
+                  placeholder=" نوع المورد"
+                  required
+                />
+              </div>
+              <div>
                 <label className="block text-gray-700 mb-1">العنوان *</label>
                 <input
                   type="text"
@@ -140,7 +154,7 @@ const SuppliersTable = ({
             <div className="mt-4 flex justify-between gap-2">
               <button
                 onClick={handleAddSupplier}
-                className="bg-[#16C47F] hover:bg-green-700 text-white px-4 py-2 rounded-lg shadow-md"
+                className="bg-[#16C47F] hover:bg-green-700 text-white px-6 py-2 rounded-lg shadow-md"
                 disabled={!newSupplier.name || !newSupplier.phone || !newSupplier.address}
               >
                 حفظ
