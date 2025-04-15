@@ -3,7 +3,7 @@ import { suppliers } from "../data";
 import SuppliersTable from "./SupTable";
 import QuotationsTable from "./QuotationsTable";
 import InvoicesTable from "./InvoicesTable";
-const Suppliers = ({ setActiveTab, activeTab, subTab, setSubTab }) => {
+const Suppliers = ({ setActiveTab, activeTab, subTab, setSubTab, getCurrentTabText }) => {
   const [selectedSupplier, setSelectedSupplier] = useState({
     name: "",
     phone: "",
@@ -69,7 +69,12 @@ const Suppliers = ({ setActiveTab, activeTab, subTab, setSubTab }) => {
 
   return (
     <div className="overflow-x-auto mx-2 shadow-md sm:mx-0 ">
-
+      <div className="flex justify-end">
+         <span className="text-gray-700 text-lg font-semibold mb-2">
+        {getCurrentTabText()}
+      </span>
+      </div>
+     
       {showForm && (
         <div className=" p-4 sm:p-6 rounded-lg mb-6 mx-2 sm:mx-0">
 
@@ -131,8 +136,8 @@ const Suppliers = ({ setActiveTab, activeTab, subTab, setSubTab }) => {
           <button
             onClick={() => handleSelection("edit", "invoices")}
             className={`px-4 py-2 shadow-md cursor-pointer ${subTab === "invoices"
-                ? "bg-white text-gray-900"
-                : "bg-gray-100 text-gray-700 hover:bg-gray-300"
+              ? "bg-white text-gray-900"
+              : "bg-gray-100 text-gray-700 hover:bg-gray-300"
               }`}
           >
             الفواتير
@@ -140,8 +145,8 @@ const Suppliers = ({ setActiveTab, activeTab, subTab, setSubTab }) => {
           <button
             onClick={() => handleSelection("edit", "quotations")}
             className={`px-4 py-2 shadow-md cursor-pointer ${subTab === "quotations"
-                ? "bg-white text-gray-900"
-                : "bg-gray-100 text-gray-700 hover:bg-gray-300"
+              ? "bg-white text-gray-900"
+              : "bg-gray-100 text-gray-700 hover:bg-gray-300"
               }`}
           >
             عرض الأسعار

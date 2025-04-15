@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { invoices } from "../data";
 
-const DuesTable = () => {
+const DuesTable = ({getCurrentTabText}) => {
   const [duesList, setDuesList] = useState(invoices);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -14,6 +14,11 @@ const DuesTable = () => {
 
   return (
     <div className="overflow-x-auto shadow-md mx-2 sm:mx-0">
+      <div className="flex justify-end">
+         <span className="text-gray-700 text-lg font-semibold mb-2">
+        {getCurrentTabText()}
+      </span>
+      </div>
       <div className="relative mt-4 sm:mt-0 w-1/2 sm:w-1/3 mb-4 ml-auto">
         <input
           type="text"

@@ -1,7 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import Tables from "./Tables";
-
+import print from "../assets/Printer.png"
+import Image from "next/image";
 const OrderManagement = () => {
   const [activeTab, setActiveTab] = useState("dues");
   const [subTab, setSubTab] = useState("dues");
@@ -18,57 +19,55 @@ const OrderManagement = () => {
       return subTab === "invoices"
         ? "الفواتير"
         : subTab === "quotations"
-        ? "عرض الأسعار"
-        : "الموردين";
+          ? "عرض الأسعار"
+          : "الموردين";
     }
     return "الموردين";
   };
 
   return (
     <>
-      <h2 dir="rtl" className="text-3xl font-bold text-gray-800 mt-6 px-2 sm:px-0">
+      <h2 dir="rtl" className="text-3xl font-bold text-gray-800  px-2 sm:px-0">
         الموردين
       </h2>
 
-      <div className="p-4 sm:p-6 rounded-lg mx-2 sm:mx-0 flex flex-col sm:flex-row justify-between gap-4">
-        
+      <div className="pt-4  rounded-lg mx-2 sm:mx-0 flex flex-col sm:flex-row justify-between gap-4">
+
         <div className="flex flex-col gap-2">
           <div className="flex flex-col sm:flex-row">
             <button
               onClick={() => handleSelection("dues")}
-              className={`px-4 py-2 shadow-md cursor-pointer ${
-                activeTab === "dues"
-                  ? "bg-white text-gray-900"
-                  : "bg-gray-100 text-gray-700 hover:bg-gray-300"
-              }`}
+              className={`px-4 py-2 border-[1px] border-[#D9D9D9] cursor-pointer ${activeTab === "dues"
+                ? "bg-white text-gray-900"
+                : " text-gray-700 hover:bg-gray-300"
+                }`}
             >
-            مبالغ المستحقة
+              مبالغ المستحقة
             </button>
             <button
               onClick={() => handleSelection("suppliers")}
-              className={`px-4 py-2 shadow-md cursor-pointer ${
-                activeTab === "suppliers" && !subTab
-                  ? "bg-white text-gray-900"
-                  : "bg-gray-100 text-gray-700 hover:bg-gray-300"
-              }`}
+              className={`px-4 py-2 border-[1px] border-[#D9D9D9] cursor-pointer ${activeTab === "suppliers" && !subTab
+                ? "bg-white text-gray-900"
+                : " text-gray-700 hover:bg-gray-300"
+                }`}
             >
               الموردين
             </button>
           </div>
 
-         
+
         </div>
 
         <div className="flex flex-col-reverse sm:flex-col items-end gap-2 text-end">
           <button
             onClick={() => window.print()}
-            className="bg-[#16C47F] hover:bg-green-700 cursor-pointer text-white px-4 py-2 rounded-lg shadow-md"
+            className="bg-[#16C47F] flex gap-5 justify-center w-[148px] hover:bg-green-700 cursor-pointer text-white px-4 py-2 rounded-t-lg"
           >
             طباعة
+            <Image src={print} alt="print icon" width={20} height={20} />
+
           </button>
-          <span className="text-gray-700 text-lg font-semibold">
-            {getCurrentTabText()}
-          </span>
+
         </div>
       </div>
 
@@ -79,6 +78,7 @@ const OrderManagement = () => {
           setSubTab={setSubTab}
           activeTab={activeTab}
           subTab={subTab}
+          getCurrentTabText={getCurrentTabText}
         />
       </div>
     </>

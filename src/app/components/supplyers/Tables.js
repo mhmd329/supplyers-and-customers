@@ -2,13 +2,13 @@ import React from "react";
 import Suppliers from "./tables/supplier";
 import DuesTable from "./tables/DuesTable";
 
-const Tables = ({ setActiveTab, activeTab, subTab ,setSubTab }) => {
+const Tables = ({ setActiveTab, activeTab, subTab ,setSubTab ,getCurrentTabText}) => {
   return (
     <div className="p-4 rounded-lg shadow-lg">
-      {activeTab === "dues" && <DuesTable />}
+      {activeTab === "dues" && <DuesTable getCurrentTabText={getCurrentTabText}/>}
       {(activeTab === "suppliers" || activeTab==="edit") && (
         <Suppliers
-          setActiveTab={setActiveTab} activeTab={activeTab} subTab={subTab} setSubTab={setSubTab}
+          setActiveTab={setActiveTab} activeTab={activeTab} subTab={subTab} setSubTab={setSubTab} getCurrentTabText={getCurrentTabText}
 
         />
       )}
