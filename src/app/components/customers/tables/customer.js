@@ -127,7 +127,7 @@ const Customer = ({ setActiveTab, activeTab, subTab, setSubTab }) => {
         </div>
       )}
       {activeTab === "edit" && (
-        <div className="flex flex-col sm:flex-row gap-2 mb-4 mt-2">
+        <div className="flex flex-col sm:flex-row gap-2 mt-2">
           <button
             onClick={() => handleSelection("edit", "invoices")}
             className={`px-4 py-2 shadow-md cursor-pointer ${subTab === "invoices"

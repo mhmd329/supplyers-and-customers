@@ -26,11 +26,11 @@ const OrderManagementCus = () => {
 
   return (
     <>
-      <h2 dir="rtl" className="text-3xl font-bold text-gray-800 mb-2 mt-6 px-2 sm:px-0">
+      <h2 dir="rtl" className="text-3xl font-bold text-gray-800 mt-6 px-2 sm:px-0">
         العملاء
       </h2>
 
-      <div className="p-4 sm:p-6 rounded-lg mb-2 mx-2 sm:mx-0 flex flex-col sm:flex-row justify-between gap-4">
+      <div className="p-4 sm:p-6 rounded-lg  mx-2 sm:mx-0 flex flex-col sm:flex-row justify-between gap-4">
         
         <div className="flex flex-col">
           <div className="flex flex-col sm:flex-row">

@@ -4,7 +4,7 @@ import DuesTableCus from "./tables/DuesTableCus";
 
 const Tables = ({ setActiveTab, activeTab, subTab ,setSubTab }) => {
   return (
-    <div className="p-4 rounded-lg shadow-md">
+    <div className="p-4 rounded-lg ">
       {activeTab === "dues" && <DuesTableCus />}
       {(activeTab === "suppliers" || activeTab==="edit") && (
         <Customer
