@@ -1,61 +1,40 @@
 import React, { useState } from "react";
 import { quotations } from "../data";
-
+import Image from "next/image";
+import AddIcon from "../../assets/Add.png"
 const QuotationsTable = () => {
     const [selectedQuotation, setSelectedQuotation] = useState(null);
     const [quotationList, setQuotationList] = useState(quotations);
     const [newQuotation, setNewQuotation] = useState({
         quotationNumber: "",
-        quotationDate: "",
-        expiryDate: "",
-        supplier: "",
-        description: "",
-        amount: "",
-        products: [
-            {
-                productName: "",
-                category: "",
-                unit: "",
-                quantity: "",
-            },
-        ],
+        quotationName: "",
+        quotationType: "",
+        quantity: "",
+        salesUnit: "",
+        tax: "",
+        discount: "",
+        quotationDesc: "",
+        total: "",
     });
 
     const [showModal, setShowModal] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
-
-    const handlePDFUpload = (e) => {
-        const file = e.target.files[0];
-        if (file && file.type === "application/pdf") {
-            console.log("تم رفع الملف:", file);
-        } else {
-            alert("الرجاء اختيار ملف PDF فقط.");
-        }
+    const [totals, setTotals] = useState([""]); // كل عنصر يمثل قيمة input في عمود "الإجمالي"
+    const handleTotalChange = (index, value) => {
+        const updatedTotals = [...totals];
+        updatedTotals[index] = value;
+        setTotals(updatedTotals);
     };
 
 
-    const handleProductChange = (e, index) => {
-        const { name, value } = e.target;
-        const updatedProducts = [...newQuotation.products];
-        updatedProducts[index][name] = value;
-        setNewQuotation(prev => ({ ...prev, products: updatedProducts }));
-    };
+    const totalSum = quotations.reduce((acc, quotation) => {
+        return acc + Number(quotation.total || 0);
+    }, 0);
+    const TotalInp = totals.reduce((acc, val) => {
+        const num = parseFloat(val);
+        return acc + (isNaN(num) ? 0 : num);
+    }, 0);
 
-    const handleAddProductRow = () => {
-        setNewQuotation(prev => ({
-            ...prev,
-            products: [...prev.products, { productName: "", category: "", unit: "", quantity: "" }],
-        }));
-    };
-
-    const handleRemoveProductRow = (index) => {
-        if (newQuotation.products.length === 1) {
-            alert("لا يمكن حذف الصف الأخير. يجب أن يحتوي العرض على منتج واحد على الأقل.");
-            return;
-        }
-        const updatedProducts = newQuotation.products.filter((_, i) => i !== index);
-        setNewQuotation(prev => ({ ...prev, products: updatedProducts }));
-    };
 
     const handleAddQuotation = () => {
         const newId = Math.max(...quotationList.map(q => q.id), 0) + 1;
@@ -67,22 +46,24 @@ const QuotationsTable = () => {
         setQuotationList([...quotationList, quotationToAdd]);
         setNewQuotation({
             quotationNumber: "",
-            quotationDate: "",
-            expiryDate: "",
-            supplier: "",
-            description: "",
-            amount: "",
-            products: [
-                { productName: "", category: "", unit: "", quantity: "" },
-            ],
+            quotationName: "",
+            quotationType: "",
+            quantity: "",
+            salesUnit: "",
+            tax: "",
+            discount: "",
+            quotationDesc: "",
+            total: "",
         });
         setShowModal(false);
     };
 
     const filteredQuotations = quotationList.filter((quotation) =>
-        quotation.amount.toString().includes(searchTerm) ||
-        quotation.description.includes(searchTerm)
+        quotation.quotationName.includes(searchTerm) ||
+        quotation.quotationDesc.includes(searchTerm) ||
+        quotation.total.toString().includes(searchTerm)
     );
+
 
     const handleDeleteQuotation = (id) => {
         setQuotationList(quotationList.filter((quotation) => quotation.id !== id));
@@ -118,9 +99,10 @@ const QuotationsTable = () => {
                 </div>
 
                 <button
-                    className="bg-[#16C47F] hover:bg-green-700 text-white px-4 py-2 rounded-lg shadow-md cursor-pointer"
-                    onClick={() => setShowModal(true)}
+                    className="bg-[#16C47F] hover:bg-[#149f68] text-white px-4 py-2 rounded-xl shadow-lg transition-all duration-200 flex items-center gap-2 text-sm sm:text-base" onClick={() => setShowModal(true)}
                 >
+                   
+                    <Image src={AddIcon} alt="أيقونة الإضافة" className="w-5 h-5" /> 
                     إضافة عرض
                 </button>
             </div>
@@ -137,7 +119,7 @@ const QuotationsTable = () => {
                             <tr className="bg-[#D0F3E5] text-gray-700">
                                 <th className="py-3 px-4 border-b">خيارات</th>
 
-                                <th className="py-3 px-4 border-b">السعر</th>
+                                <th className="py-3 px-4 border-b">التاريخ</th>
                                 <th className="py-3 px-4 border-b">وصف العرض</th>
                             </tr>
                         </thead>
@@ -168,7 +150,7 @@ const QuotationsTable = () => {
                                         </button>
                                         <button
                                             className="text-[#16C47F] hover:bg-green-700 border cursor-pointer border-[#16C47F] px-2 sm:px-3 py-1 rounded-mdhover:bg-green-700 transition flex items-center justify-center gap-1 text-xs sm:text-sm"
-                                            onClick={() => setSelectedQuotation(quotation)}
+                                            onClick={() => setSelectedQuotation(quotation.id)}
                                         >
                                             عرض
                                             <svg
@@ -194,7 +176,7 @@ const QuotationsTable = () => {
                                         </button>
                                     </td>
 
-                                    <td className="py-3 px-4">{quotation.amount}</td>
+                                    <td className="py-3 px-4">{quotation.quotationDate}</td>
                                     <td className="py-3 px-4">{quotation.description}</td>
                                 </tr>
                             ))}
@@ -210,35 +192,41 @@ const QuotationsTable = () => {
                         <table className="min-w-full">
                             <thead>
                                 <tr className="bg-[#D0F3E5] text-gray-700">
-                                    <th className="py-3 px-6 border-b w-[20%]">الاجمالي</th>
-                                    <th className="py-3 px-6 border-b w-[20%]">الكمية</th>
-                                    <th className="py-3 px-6 border-b w-[20%]">وحدة البيع</th>
-                                    <th className="py-3 px-6 border-b w-[20%]">اسم المنتج</th>
-                                    <th className="py-3 px-6 border-b w-[20%]">كود المنتج</th>
+                                    <th className="py-3 px-6 border-b">الاجمالي</th>
+                                    <th className="py-3 px-6 border-b ">الوصف</th>
+                                    <th className="py-3 px-6 border-b ">خصم</th>
+                                    <th className="py-3 px-6 border-b ">ضريبة</th>
+                                    <th className="py-3 px-6 border-b ">وحدة البيع</th>
+                                    <th className="py-3 px-6 border-b "> الكمية</th>
+                                    <th className="py-3 px-6 border-b ">فئة المنتج </th>
+                                    <th className="py-3 px-6 border-b ">اسم المنتج</th>
+                                    <th className="py-3 px-6 border-b ">كود المنتج</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr className="text-center border-b bg-gray-50">
-                                    <td className="py-3 px-6">451</td>
-                                    <td className="py-3 px-6">452</td>
-                                    <td className="py-3 px-6">45</td>
-                                    <td className="py-3 px-6">لاب توب</td>
-                                    <td className="py-3 px-6">125</td>
+                                {quotations.map((quotation, index) => (
+                                    <tr key={quotation.id} className={`text-center border-b ${index % 2 === 0 ? "bg-gray-50" : "bg-[#E8F9F2]"}`}>
+                                        <td className="py-3 px-6">{quotation.total}</td>
+                                        <td className="py-3 px-6">{quotation.quotationDesc}</td>
+                                        <td className="py-3 px-6">{quotation.discount}</td>
+                                        <td className="py-3 px-6">{quotation.tax}</td>
+                                        <td className="py-3 px-6">{quotation.salesUnit}</td>
+                                        <td className="py-3 px-6">{quotation.quantity}</td>
+                                        <td className="py-3 px-6">{quotation.quotationType}</td>
+                                        <td className="py-3 px-6">{quotation.quotationName}</td>
+                                        <td className="py-3 px-6">{quotation.quotationNumber}</td>
+                                    </tr>
+                                ))}
+                                <tr className="bg-[#E8F9F2]">
+                                    <td colSpan="9" className="text-start  font-semibold ">
+                                        <span className="bg-[#16C47F] text-white px-10 py-1">
+                                            {totalSum}
+                                        </span>
+
+                                    </td>
                                 </tr>
-                                <tr className="text-center border-b bg-[#E8F9F2]">
-                                    <td className="py-3 px-6">451</td>
-                                    <td className="py-3 px-6">452</td>
-                                    <td className="py-3 px-6">45</td>
-                                    <td className="py-3 px-6">لاب توب</td>
-                                    <td className="py-3 px-6">125</td>
-                                </tr>
-                                <tr className="text-center border-b bg-gray-50">
-                                    <td className="py-3 px-6">451</td>
-                                    <td className="py-3 px-6">452</td>
-                                    <td className="py-3 px-6">45</td>
-                                    <td className="py-3 px-6">لاب توب</td>
-                                    <td className="py-3 px-6">125</td>
-                                </tr>
+
+
                             </tbody>
                         </table>
 
@@ -252,11 +240,12 @@ const QuotationsTable = () => {
                 </div>
             )}
             {showModal && (
-                <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50">
-                    <div dir="rtl" className="bg-white p-6 rounded-lg shadow-lg w-full sm:w-[650px] flex flex-col justify-start items-center relative">
+                <div className="fixed inset-0 bg-black/60 flex p-4 justify-center items-center z-50">
+                    <div dir="rtl" className="bg-white p-4 md:p-6 rounded-lg shadow-lg w-full max-w-7xl max-h-[90vh] overflow-auto flex flex-col justify-start items-center relative">
 
+                        {/* زر الإغلاق */}
                         <button
-                            className="absolute top-2 right-2 text-gray-700 cursor-pointer p-2 rounded-full hover:bg-gray-200"
+                            className="absolute top-2 left-2 text-gray-700 cursor-pointer p-2 rounded-full hover:bg-gray-200"
                             onClick={() => setShowModal(false)}
                         >
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -264,124 +253,126 @@ const QuotationsTable = () => {
                             </svg>
                         </button>
 
-                        <h2 className="text-xl font-semibold mb-4 text-gray-800">إضافة عرض </h2>
-                        <p className="w-full text-right text-sm text-gray-700">يمكنك تسجيل العرض يدويا او من خلال رفع صورة العرض</p>
-                        {/* 🆕 رفع ملف PDF */}
-                        <div className="w-full mb-6 flex flex-col items-center justify-center text-center shadow-md mt-4 pb-4">
-                            {/* أيقونة طابعة */}
-                            <div className="text-[#16C47F] mb-2">
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    className="h-12 w-12"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                    strokeWidth={1.5}
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        d="M6 9V4h12v5m-1 7h2a2 2 0 002-2v-3a2 2 0 00-2-2H5a2 2 0 00-2 2v3a2 2 0 002 2h2m10 0v4H6v-4h10z"
-                                    />
-                                </svg>
-                            </div>
+                        <h2 className="text-xl font-semibold mb-4 text-gray-800">إضافة عرض</h2>
 
-                            {/* الزر المخصص لرفع الملف */}
-                            <label
-                                htmlFor="pdf-upload"
-                                className="cursor-pointer text-gray-700 font-medium  hover:bg-gray-200 px-4 py-2 rounded-md transition"
-                            >
-                                ارفع ملفاتك هنا <span className="text-[#16C47F]">أو اضغط للرفع</span>
-                            </label>
+                        {/* جدول متجاوب */}
+                        <div className="w-full overflow-x-auto">
+                            <table className="table-auto min-w-[1000px] text-right border-collapse">
+                                <thead>
+                                    <tr>
+                                        <th className="px-4 py-2 text-white bg-[#16C47F] whitespace-nowrap">كود المنتج</th>
+                                        <th className="px-4 py-2 border text-white bg-[#16C47F] whitespace-nowrap">فئة المنتج</th>
+                                        <th className="px-4 py-2 border text-white bg-[#16C47F] whitespace-nowrap">أسم المنتج</th>
+                                        <th className="px-4 py-2 border text-white bg-[#16C47F] whitespace-nowrap">الكمية المطلوبة</th>
+                                        <th className="px-4 py-2 border bg-[#D0F3E5] whitespace-nowrap">الكمية المتاحة</th>
+                                        <th className="px-4 py-2 border bg-[#D0F3E5] whitespace-nowrap">وحده البيع</th>
+                                        <th className="px-4 py-2 border bg-[#D0F3E5] whitespace-nowrap">الضريبة</th>
+                                        <th className="px-4 py-2 border bg-[#D0F3E5] whitespace-nowrap">خصم</th>
+                                        <th className="px-4 py-2 border bg-[#D0F3E5] whitespace-nowrap">الوصف</th>
+                                        <th className="px-4 py-2 border bg-[#D0F3E5] whitespace-nowrap">الإجمالي</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        {/* بيانات ثابتة */}
+                                        <td className="px-4 py-2 border whitespace-nowrap">125</td>
+                                        <td className="px-4 py-2 border whitespace-nowrap">كرتونة</td>
+                                        <td className="px-4 py-2 border whitespace-nowrap">لاب توب</td>
+                                        <td className="px-4 py-2 border whitespace-nowrap">12</td>
 
-                            {/* عنصر رفع الملف */}
-                            <input
-                                id="pdf-upload"
-                                type="file"
-                                accept="application/pdf"
-                                onChange={handlePDFUpload}
-                                className="hidden"
-                            />
+                                        {/* حقول إدخال */}
+                                        <td className="px-4 py-2 border">
+                                            <input type="text" className="p-2 w-full  rounded" />
+                                        </td>
+                                        <td className="px-4 py-2 border">
+                                            <input type="text" className="p-2 w-full  rounded" />
+                                        </td>
+                                        <td className="px-4 py-2 border">
+                                            <input type="text" className="p-2 w-full  rounded" />
+                                        </td>
+                                        <td className="px-4 py-2 border">
+                                            <input type="text" className="p-2 w-full  rounded" />
+                                        </td>
+                                        <td className="px-4 py-2 border">
+                                            <input type="text" className="p-2 w-full  rounded" />
+                                        </td>
+                                        <td className="px-4 py-2 border">
+                                            <input
+                                                type="number"
+                                                value={totals[0] || ""}
+                                                onChange={(e) => handleTotalChange(0, e.target.value)}
+                                                className="p-2 w-full rounded"
+                                            />
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        {/* بيانات ثابتة */}
+                                        <td className="px-4 py-2 border whitespace-nowrap">125</td>
+                                        <td className="px-4 py-2 border whitespace-nowrap">كرتونة</td>
+                                        <td className="px-4 py-2 border whitespace-nowrap">لاب توب</td>
+                                        <td className="px-4 py-2 border whitespace-nowrap">12</td>
+
+                                        {/* حقول إدخال */}
+                                        <td className="px-4 py-2 border">
+                                            <input type="text" className="p-2 w-full  rounded" />
+                                        </td>
+                                        <td className="px-4 py-2 border">
+                                            <input type="text" className="p-2 w-full  rounded" />
+                                        </td>
+                                        <td className="px-4 py-2 border">
+                                            <input type="text" className="p-2 w-full  rounded" />
+                                        </td>
+                                        <td className="px-4 py-2 border">
+                                            <input type="text" className="p-2 w-full  rounded" />
+                                        </td>
+                                        <td className="px-4 py-2 border">
+                                            <input type="text" className="p-2 w-full  rounded" />
+                                        </td>
+                                        <td className="px-4 py-2 border">
+                                            <input
+                                                type="number"
+                                                value={totals[1] || ""}
+                                                onChange={(e) => handleTotalChange(1, e.target.value)}
+                                                className="p-2 w-full rounded"
+                                            />
+
+                                        </td>
+                                    </tr>
+                                    <tr dir="ltr" >
+                                        <td className="px-4 py-2  whitespace-nowrap"></td>
+                                        <td className="px-4 py-2  whitespace-nowrap"></td>
+                                        <td className="px-4 py-2  whitespace-nowrap"> </td>
+                                        <td className="px-4 py-2  whitespace-nowrap"></td>
+
+
+
+                                        <td className="px-4 py-2 ">
+                                        </td>
+                                        <td className="px-4 py-2 ">
+                                        </td>
+                                        <td className="px-4 py-2 ">
+                                        </td>
+                                        <td className="px-4 py-2 ">
+                                        </td>
+                                        <td className="px-4 py-2 ">
+                                        </td>
+                                        <td colSpan="10" className="text-start px-4 py-2 border font-semibold bg-[#B9B9B9]">
+                                            <span className=" text-black font-[400] px-10 py-1">
+                                                {TotalInp}
+                                            </span>
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                        {/* رأس الجدول */}
-                        <div className="w-full mb-2 mr-auto">
-                            <div className="grid grid-cols-[60px_1fr_1fr_1fr_1fr] gap-4 text-sm font-medium text-black text-center">
-                                <div></div> {/* العمود الخاص بالأزرار */}
-                                <div>اسم المنتج</div>
-                                <div>فئة المنتج</div>
-                                <div>وحدة البيع</div>
-                                <div>الكمية</div>
-                            </div>
-                        </div>
-
-                        {/* صفوف المنتجات */}
-                        {newQuotation.products.map((product, index) => {
-                            const isLastRow = index === newQuotation.products.length - 1;
-
-                            return (
-                                <div key={index} className="w-full mb-2">
-                                    <div className="grid grid-cols-5 gap-4 items-center">
-
-                                        {/* العمود الأول: أزرار + / × */}
-                                        <div className="flex justify-end">
-                                            {isLastRow && (
-                                                <>
-
-                                                    <button
-                                                        onClick={handleAddProductRow}
-                                                        className="text-black cursor-pointer text-xl px-3 py-1 rounded-lg hover:scale-110"
-                                                    >
-                                                        <span className="text-xl font-bold w-6 h-6 flex items-center justify-center border  rounded-full">
-                                                            +
-                                                        </span>
-                                                    </button>
-                                                </>
-                                            )}
-                                        </div>
-
-                                        {/* باقي الأعمدة */}
-                                        <input
-                                            type="text"
-                                            name="productName"
-                                            value={product.productName}
-                                            onChange={(e) => handleProductChange(e, index)}
-                                            className="p-2 border border-gray-300 rounded-lg text-right"
-                                            placeholder="اسم المنتج"
-                                        />
-                                        <input
-                                            type="text"
-                                            name="category"
-                                            value={product.category}
-                                            onChange={(e) => handleProductChange(e, index)}
-                                            className="p-2 border border-gray-300 rounded-lg text-right"
-                                            placeholder="فئة المنتج"
-                                        />
-                                        <input
-                                            type="text"
-                                            name="unit"
-                                            value={product.unit}
-                                            onChange={(e) => handleProductChange(e, index)}
-                                            className="p-2 border border-gray-300 rounded-lg text-right"
-                                            placeholder="وحدة البيع"
-                                        />
-                                        <input
-                                            type="number"
-                                            name="quantity"
-                                            value={product.quantity}
-                                            onChange={(e) => handleProductChange(e, index)}
-                                            className="p-2 border border-gray-300 rounded-lg text-right w-full"
-                                            placeholder="الكمية"
-                                        />
-                                    </div>
-                                </div>
-                            );
-                        })}
 
                         {/* زر الحفظ */}
-                        <div className="w-full mt-4 flex justify-end">
+                        <div className="w-full mt-6 flex justify-end">
                             <button
                                 onClick={handleAddQuotation}
-                                className="w-22 bg-[#16C47F] cursor-pointer text-white px-4 py-2 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
+                                className="bg-[#16C47F] cursor-pointer text-white px-6 py-2 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
                             >
                                 حفظ
                             </button>
@@ -389,6 +380,7 @@ const QuotationsTable = () => {
                     </div>
                 </div>
             )}
+
 
         </div>
     );

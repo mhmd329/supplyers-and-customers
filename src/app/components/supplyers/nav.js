@@ -2,12 +2,19 @@ import React from "react";
 import Image from "next/image";
 import logo from "../assets/logo.png"
 import doc from "../assets/imgwface.jpeg"
+import notification from "../assets/notifications.png"
+import language from "../assets/langicon.png"
 const NavBar = () => {
 
 
   return (
-    <nav className=" shadow-md px-6 py-4 sticky top-0 left-0 right-0 w-full z-50">
+    <nav className=" shadow-md px-6 py-4 relative top-0 left-0 right-0 w-full z-50">
       <div className="container mx-auto flex flex-col md:flex-row md:items-center md:justify-between">
+      <div className="flex items-center gap-2">
+  <Image src={language} alt="Language Icon" width={24} height={24}/> 
+   <Image src={notification} alt="Notification Icon" width={28} height={28}/>
+
+</div>
 
 
         <div className="flex items-center gap-3">

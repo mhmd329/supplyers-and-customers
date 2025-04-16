@@ -7,13 +7,15 @@ const Suppliers = ({ setActiveTab, activeTab, subTab, setSubTab, getCurrentTabTe
   const [selectedSupplier, setSelectedSupplier] = useState({
     name: "",
     phone: "",
-    address: ""
+    address: "",
+    type: ""
   })
   const [supplierList, setSupplierList] = useState(suppliers);
   const [newSupplier, setNewSupplier] = useState({
     name: "",
     phone: "",
-    address: ""
+    address: "",
+    type: ""
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingId, setEditingId] = useState(null);
@@ -70,11 +72,11 @@ const Suppliers = ({ setActiveTab, activeTab, subTab, setSubTab, getCurrentTabTe
   return (
     <div className="overflow-x-auto mx-2 shadow-md sm:mx-0 ">
       <div className="flex justify-end">
-         <span className="text-gray-700 text-lg font-semibold mb-2">
-        {getCurrentTabText()}
-      </span>
+        <span className="text-gray-700 text-lg font-semibold mb-2">
+          {getCurrentTabText()}
+        </span>
       </div>
-     
+
       {showForm && (
         <div className=" p-4 sm:p-6 rounded-lg mb-6 mx-2 sm:mx-0">
 
@@ -132,12 +134,12 @@ const Suppliers = ({ setActiveTab, activeTab, subTab, setSubTab, getCurrentTabTe
         </div>
       )}
       {activeTab === "edit" && (
-        <div className="flex flex-col sm:flex-row mb-4 mt-2">
+        <div className="flex flex-col sm:flex-row mt-2">
           <button
             onClick={() => handleSelection("edit", "invoices")}
             className={`px-4 py-2 shadow-md cursor-pointer ${subTab === "invoices"
               ? "bg-white text-gray-900"
-              : "bg-gray-100 text-gray-700 hover:bg-gray-300"
+              : " text-gray-700 hover:bg-gray-300"
               }`}
           >
             الفواتير
@@ -146,7 +148,7 @@ const Suppliers = ({ setActiveTab, activeTab, subTab, setSubTab, getCurrentTabTe
             onClick={() => handleSelection("edit", "quotations")}
             className={`px-4 py-2 shadow-md cursor-pointer ${subTab === "quotations"
               ? "bg-white text-gray-900"
-              : "bg-gray-100 text-gray-700 hover:bg-gray-300"
+              : " text-gray-700 hover:bg-gray-300"
               }`}
           >
             عرض الأسعار
@@ -154,9 +156,11 @@ const Suppliers = ({ setActiveTab, activeTab, subTab, setSubTab, getCurrentTabTe
         </div>
       )}
 
-      {/* عرض الجدول بناءً على التبويب الفرعي */}
+      {/* عرض الجدول بناءً على التبويب الفرعي */}  
+          <div className="shadow-lg border-gray-400 border-[0.5px]">
+
       {(activeTab === "suppliers" || (activeTab === "edit" && subTab === null)) && (
-        <SuppliersTable
+      <SuppliersTable
           handleEditOrder={handleEditOrder}
           supplierList={supplierList}
           setSupplierList={setSupplierList}
@@ -170,6 +174,7 @@ const Suppliers = ({ setActiveTab, activeTab, subTab, setSubTab, getCurrentTabTe
       {/* عرض الجدول للفواتير وعرض الأسعار */}
       {activeTab === "edit" && subTab === "quotations" && <QuotationsTable />}
       {activeTab === "edit" && subTab === "invoices" && <InvoicesTable />}
+      </div>
     </div>
   );
 }

@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-
+import AddIcon from "../../assets/Add.png"
+import Image from "next/image";
 const SuppliersTable = ({
   handleEditOrder,
   supplierList,
   setSupplierList,
   newSupplier,
   setNewSupplier,
-  activeTab,
+
   isModalOpen,
   setIsModalOpen
 }) => {
@@ -16,7 +17,8 @@ const SuppliersTable = ({
     return (
       supplier.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       supplier.phone.includes(searchQuery) ||
-      supplier.address.toLowerCase().includes(searchQuery.toLowerCase())
+      supplier.address.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      supplier.type.toLowerCase().includes(searchQuery.toLowerCase())
     );
   });
 
@@ -26,12 +28,12 @@ const SuppliersTable = ({
       id: newId,
       name: newSupplier.name,
       phone: newSupplier.phone,
-      email: newSupplier.email,
+      type: newSupplier.type,
       address: newSupplier.address
     };
 
     setSupplierList([...supplierList, supplierToAdd]);
-    setNewSupplier({ name: "", phone: "", email: "", address: "" });
+    setNewSupplier({ name: "", phone: "", email: "", address: "", type: "" });
     setIsModalOpen(false);
   };
 
@@ -43,13 +45,12 @@ const SuppliersTable = ({
       <div className="mb-4 flex flex-col sm:flex-row justify-between items-center">
         <button
           onClick={() => setIsModalOpen(true)}
-          className="bg-[#16C47F] hover:bg-green-700 text-white cursor-pointer px-4 py-2 rounded-lg shadow-md w-auto flex items-center gap-2"
+          className="bg-[#16C47F] hover:bg-[#149f68] text-white px-4 py-2 rounded-xl shadow-lg transition-all duration-200 flex items-center gap-2 text-sm sm:text-base"
         >
-          إضافة مورد
-          <span className="text-xl font-bold w-6 h-6 flex items-center justify-center border  rounded-full">
-            +
-          </span>
+          <span>إضافة مورد</span>
+          <Image src={AddIcon} alt="أيقونة الإضافة" className="w-5 h-5" />
         </button>
+
 
 
         <div className="relative mt-4  sm:mt-0 w-1/2 sm:w-1/3">
@@ -81,7 +82,7 @@ const SuppliersTable = ({
 
       {isModalOpen && (
         <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50">
-          <div className=" p-5 bg-white rounded-lg shadow-lg w-96 relative">
+          <div className=" p-5 bg-white rounded-lg shadow-lg w-[600px] relative">
             <button
               onClick={() => setIsModalOpen(false)}
               className="absolute top-2 left-2 text-black px-2 py-1 rounded-lg cursor-pointer"
@@ -89,13 +90,13 @@ const SuppliersTable = ({
               x
             </button>
 
-            <h3 className="text-lg font-semibold mb-4 text-gray-700 text-center">
+            <h3 className="text-lg mb-4 text-[#1E1E1E] text-center">
               إضافة مورد جديد
             </h3>
 
             <div dir="rtl" className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-gray-700 mb-1">اسم المورد *</label>
+                <label className="block text-[#1E1E1E] mb-1">اسم المورد *</label>
                 <input
                   type="text"
                   name="name"
@@ -103,13 +104,13 @@ const SuppliersTable = ({
                   onChange={(e) =>
                     setNewSupplier({ ...newSupplier, name: e.target.value })
                   }
-                  className="w-full p-2 border border-gray-300 rounded-lg"
+                  className="w-64 p-2 border border-gray-300 rounded-lg"
                   placeholder=" اسم المورد"
                   required
                 />
               </div>
               <div>
-                <label className="block text-gray-700 mb-1">رقم الهاتف *</label>
+                <label className="block text-[#1E1E1E] mb-1">رقم الهاتف *</label>
                 <input
                   type="text"
                   name="phone"
@@ -117,27 +118,27 @@ const SuppliersTable = ({
                   onChange={(e) =>
                     setNewSupplier({ ...newSupplier, phone: e.target.value })
                   }
-                  className="w-full p-2 border border-gray-300 rounded-lg"
+                  className="w-64 p-2 border border-gray-300 rounded-lg"
                   placeholder=" رقم الهاتف"
                   required
                 />
               </div>
               <div>
-                <label className="block text-gray-700 mb-1">نوع المورد *</label>
+                <label className="block text-[#1E1E1E] mb-1">نوع المورد *</label>
                 <input
                   type="text"
                   name="address"
-                  value={newSupplier.address}
+                  value={newSupplier.type}
                   onChange={(e) =>
-                    setNewSupplier({ ...newSupplier, address: e.target.value })
+                    setNewSupplier({ ...newSupplier, type: e.target.value })
                   }
-                  className="w-full p-2 border border-gray-300 rounded-lg"
+                  className="w-64 p-2 border border-gray-300 rounded-lg"
                   placeholder=" نوع المورد"
                   required
                 />
               </div>
               <div>
-                <label className="block text-gray-700 mb-1">العنوان *</label>
+                <label className="block text-[#1E1E1E] mb-1">العنوان *</label>
                 <input
                   type="text"
                   name="address"
@@ -145,7 +146,7 @@ const SuppliersTable = ({
                   onChange={(e) =>
                     setNewSupplier({ ...newSupplier, address: e.target.value })
                   }
-                  className="w-full p-2 border border-gray-300 rounded-lg"
+                  className="w-64 p-2 border border-gray-300 rounded-lg"
                   placeholder=" العنوان"
                   required
                 />
@@ -156,11 +157,11 @@ const SuppliersTable = ({
               <button
                 onClick={handleAddSupplier}
                 className="bg-[#16C47F] hover:bg-green-700 text-white px-6 py-2 rounded-lg shadow-md"
-                disabled={!newSupplier.name || !newSupplier.phone || !newSupplier.address}
+                disabled={!newSupplier.name || !newSupplier.phone || !newSupplier.address || !newSupplier.type}
               >
                 حفظ
               </button>
-                         </div>
+            </div>
           </div>
         </div>
       )}
@@ -176,9 +177,10 @@ const SuppliersTable = ({
             <thead>
               <tr className="bg-[#D0F3E5] text-gray-700">
                 <th className="py-3 px-4 border-b text-sm sm:text-base">خيارات</th>
+                <th className="py-3 px-4 border-b text-sm sm:text-base">نوع المورد</th>
                 <th className="py-3 px-4 border-b text-sm sm:text-base">العنوان</th>
-                <th className="py-3 px-4 border-b text-sm sm:text-base">رقم الهاتف</th>
-                <th className="py-3 px-4 border-b text-sm sm:text-base">الاسم</th>
+                <th className="py-3 px-4 border-b text-sm sm:text-base"> الهاتف</th>
+                <th className="py-3 px-4 border-b text-sm sm:text-base">اسم المورد</th>
               </tr>
             </thead>
             <tbody>
@@ -238,6 +240,7 @@ const SuppliersTable = ({
                     </button>
 
                   </td>
+                  <td className="py-3 px-4 text-sm sm:text-base">{supplier.type}</td>
                   <td className="py-3 px-4 text-sm sm:text-base">{supplier.address}</td>
                   <td className="py-3 px-4 text-sm sm:text-base">{supplier.phone}</td>
                   <td className="py-3 px-4 text-sm sm:text-base">{supplier.name}</td>
