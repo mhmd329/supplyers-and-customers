@@ -13,7 +13,7 @@ const DuesTable = ({getCurrentTabText}) => {
   });
 
   return (
-    <div className="overflow-x-auto shadow-md mx-2 sm:mx-0">
+    <div className="overflow-x-auto mx-2 sm:mx-0">
       <div className="flex justify-end">
          <span className="text-gray-700 text-lg font-semibold mb-2">
         {getCurrentTabText()}
@@ -48,7 +48,7 @@ const DuesTable = ({getCurrentTabText}) => {
           لا توجد بيانات متاحة
         </div>
       ) : (
-        <div className="shadow-md rounded-lg overflow-hidden">
+        <div className=" rounded-lg overflow-hidden">
           <table className="min-w-full">
             <thead>
               <tr className="bg-[#D0F3E5] text-gray-700">

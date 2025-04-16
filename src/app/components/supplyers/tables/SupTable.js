@@ -6,6 +6,7 @@ const SuppliersTable = ({
   setSupplierList,
   newSupplier,
   setNewSupplier,
+  activeTab,
   isModalOpen,
   setIsModalOpen
 }) => {
@@ -159,8 +160,7 @@ const SuppliersTable = ({
               >
                 حفظ
               </button>
-
-            </div>
+                         </div>
           </div>
         </div>
       )}

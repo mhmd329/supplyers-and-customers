@@ -78,9 +78,10 @@ const CustomerTable = ({
       </div>
 
 
+     
       {isModalOpen && (
         <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50">
-          <div className=" p-5 rounded-lg shadow-lg w-96 relative">
+          <div className=" p-5 bg-white rounded-lg shadow-lg w-96 relative">
             <button
               onClick={() => setIsModalOpen(false)}
               className="absolute top-2 left-2 text-black px-2 py-1 rounded-lg cursor-pointer"
@@ -89,12 +90,12 @@ const CustomerTable = ({
             </button>
 
             <h3 className="text-lg font-semibold mb-4 text-gray-700 text-center">
-              إضافة عميل جديد
+              إضافة مورد جديد
             </h3>
 
-            <div className="grid grid-cols-1 gap-4">
+            <div dir="rtl" className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-gray-700 mb-1">اسم المورد *</label>
+                <label className="block text-gray-700 mb-1">اسم العميل *</label>
                 <input
                   type="text"
                   name="name"
@@ -103,7 +104,7 @@ const CustomerTable = ({
                     setNewSupplier({ ...newSupplier, name: e.target.value })
                   }
                   className="w-full p-2 border border-gray-300 rounded-lg"
-                  placeholder="أدخل اسم العميل"
+                  placeholder=" اسم المورد"
                   required
                 />
               </div>
@@ -117,7 +118,21 @@ const CustomerTable = ({
                     setNewSupplier({ ...newSupplier, phone: e.target.value })
                   }
                   className="w-full p-2 border border-gray-300 rounded-lg"
-                  placeholder="أدخل رقم الهاتف"
+                  placeholder=" رقم الهاتف"
+                  required
+                />
+              </div>
+              <div>
+                <label className="block text-gray-700 mb-1">نوع العميل *</label>
+                <input
+                  type="text"
+                  name="address"
+                  value={newSupplier.address}
+                  onChange={(e) =>
+                    setNewSupplier({ ...newSupplier, address: e.target.value })
+                  }
+                  className="w-full p-2 border border-gray-300 rounded-lg"
+                  placeholder=" نوع العميل"
                   required
                 />
               </div>
@@ -131,7 +146,7 @@ const CustomerTable = ({
                     setNewSupplier({ ...newSupplier, address: e.target.value })
                   }
                   className="w-full p-2 border border-gray-300 rounded-lg"
-                  placeholder="أدخل العنوان"
+                  placeholder=" العنوان"
                   required
                 />
               </div>
@@ -140,13 +155,12 @@ const CustomerTable = ({
             <div className="mt-4 flex justify-between gap-2">
               <button
                 onClick={handleAddSupplier}
-                className="bg-[#16C47F] hover:bg-green-700 text-white px-4 py-2 rounded-lg shadow-md"
+                className="bg-[#16C47F] hover:bg-green-700 text-white px-6 py-2 rounded-lg shadow-md"
                 disabled={!newSupplier.name || !newSupplier.phone || !newSupplier.address}
               >
                 حفظ
               </button>
-
-            </div>
+                         </div>
           </div>
         </div>
       )}

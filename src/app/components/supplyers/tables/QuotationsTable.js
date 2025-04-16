@@ -204,7 +204,7 @@ const QuotationsTable = () => {
             )}
             {selectedQuotation && (
                 <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50 p-4">
-                    <div className=" p-6 rounded-lg shadow-lg w-full max-w-5xl relative text-center overflow-x-auto">
+                    <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-5xl relative text-center overflow-x-auto">
                         <h2 className="text-2xl font-semibold mb-6 text-gray-700">عرض اسعار</h2>
 
                         <table className="min-w-full">
@@ -253,7 +253,7 @@ const QuotationsTable = () => {
             )}
             {showModal && (
                 <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50">
-                    <div dir="rtl" className=" p-6 rounded-lg shadow-lg w-full sm:w-[650px] flex flex-col justify-start items-center relative">
+                    <div dir="rtl" className="bg-white p-6 rounded-lg shadow-lg w-full sm:w-[650px] flex flex-col justify-start items-center relative">
 
                         <button
                             className="absolute top-2 right-2 text-gray-700 cursor-pointer p-2 rounded-full hover:bg-gray-200"

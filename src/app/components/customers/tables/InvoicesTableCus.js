@@ -107,7 +107,7 @@ const InvoicesTableCus = () => {
             )}
             {selectedInvoice && (
                 <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50 p-4">
-                    <div className=" p-6 rounded-lg shadow-lg w-full max-w-[90%] md:max-w-[900px] max-h-[90vh] overflow-auto relative">
+                    <div className=" p-6 bg-white rounded-lg shadow-lg w-full max-w-[90%] md:max-w-[900px] max-h-[90vh] overflow-auto relative">
                         <button
                             className="text-black rounded-full w-8 h-8 flex items-center justify-center absolute top-4 left-4 cursor-pointer"
                             onClick={() => setSelectedInvoice(null)}
@@ -155,7 +155,7 @@ const InvoicesTableCus = () => {
                             </table>
                             {showTaxModal && (
   <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50 p-4">
-    <div className="ß p-6 rounded-lg shadow-lg w-full max-w-[90%] md:max-w-md max-h-[90vh] overflow-y-auto relative">
+    <div className="ß p-6 bg-white rounded-lg shadow-lg w-full max-w-[90%] md:max-w-md max-h-[90vh] overflow-y-auto relative">
       <button
         className="text-black rounded-full w-8 h-8 flex items-center justify-center absolute top-4 left-4 cursor-pointer"
         onClick={() => setShowTaxModal(false)}

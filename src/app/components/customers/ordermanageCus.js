@@ -27,11 +27,11 @@ const OrderManagementCus = () => {
 
   return (
     <>
-      <h2 dir="rtl" className="text-3xl font-bold text-gray-800 mt-6 px-2 sm:px-0">
+      <h2 dir="rtl" className="text-3xl font-bold text-gray-800 px-2 sm:px-0">
         العملاء
       </h2>
 
-      <div className="p-4 sm:p-6 rounded-lg  mx-2 sm:mx-0 flex flex-col sm:flex-row justify-between gap-4">
+      <div className="pt-4 rounded-lg  mx-2 sm:mx-0 flex flex-col sm:flex-row justify-between gap-4">
         
         <div className="flex flex-col">
         <div className="flex flex-col sm:flex-row">
@@ -57,7 +57,6 @@ const OrderManagementCus = () => {
 
          
         </div>
-
         <div className="flex flex-col-reverse sm:flex-col items-end gap-2 text-end">
           <button
             onClick={() => window.print()}
@@ -78,6 +77,7 @@ const OrderManagementCus = () => {
           setSubTab={setSubTab}
           activeTab={activeTab}
           subTab={subTab}
+          getCurrentTabText={getCurrentTabText}
         />
       </div>
     </>
